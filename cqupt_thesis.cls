@@ -1,26 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cqupt_thesis}
 
-% 加载key value options
-\RequirePackage{xkeyval}
-
-\def\approval{0}
-\def\colortitle{0}
-\def\secret{0}
-
-\DeclareOption{doctor}{\def\thesistype{0}}
-\DeclareOption{master}{\def\thesistype{1}}
-\DeclareOption{approval}{\def\approval{1}}
-\DeclareOption{color}{\def\colortitle{1}}
-\DeclareOption{secret}{\def\secret{1}}
-\DeclareOption{academic}{\def\degreetype{0}}
-\DeclareOption{professional}{\def\degreetype{1}}
-
-
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
-\LoadClass[a4paper,UTF8,twoside, openright, zihao=-4,]{ctexbook}
+%  咱们重邮模板是oneside的！
+\LoadClass[a4paper,UTF8,oneside, openany, zihao=-4,AutoFakeBold]{ctexbook}
+
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{pifont}
 
 
 % 解图表目录引用编号顺序问题
@@ -29,6 +18,8 @@
 \RequirePackage{hyperref}
 % fancyhdr 宏包提供了方便使用的命令用于设置页眉、页脚。
 \RequirePackage{fancyhdr}
+\RequirePackage{titletoc}
+
 % 加入判断支持
 \RequirePackage{ifthen}
 % 此宏包提供图形支持。
@@ -37,31 +28,44 @@
 \RequirePackage{xcolor}
 \RequirePackage{multirow}
 \RequirePackage{array}
-%\RequirePackage{syntonly}
-%\syntaxonly
-%font
-\RequirePackage{xeCJK}
-\setmainfont{Times New Roman}
-\setCJKmainfont[AutoFakeBold=1.8,ItalicFont=KaiTi]{SimSun}
+\RequirePackage{setspace}
+\usepackage{booktabs}
 
-%\newCJKfontfamily\bsong{SimSun}[AutoFakeBold]
-%\newcommand{\bfs}[1]{\textbf{#1}}
-\setmonofont[Mapping=tex-text]{Consolas}
+\RequirePackage{enumitem}
 
+
+%pdfpages 宏包便于我们插入扫描后的授权说明和声明页 PDF 文档。
+\RequirePackage{pdfpages}
+\includepdfset{fitpaper=true}
+
+
+% 以下是一些文档默认设置：
 %使用geometry调整边距
 \RequirePackage{geometry}
 \geometry{a4paper,papersize={21cm,29.7cm}}
-\geometry{left=2.5cm,right=2.5cm,top=3cm,bottom=3cm,headsep=0.32cm,footskip=1cm}
+%http://www.ctex.org/documents/packages/layout/geometry.htm
+\geometry{left=3.5cm,right=2.45cm,top=3cm,bottom=3cm,footskip=1.3cm,headsep=0.89cm,headheight=1.5cm}
+%\geometry{left=2.5cm,right=2.5cm,top=3cm,bottom=3cm,footskip=1.3cm,headsep=0.89cm,headheight=1.5cm}
 % bottom为2.5 + 0.5cm，考虑到footer的高度，这样与word一致
+% 页眉页脚、线
+\pagestyle{fancy}
+\renewcommand\headrulewidth{0.7pt}
+% 正文字体
+\RequirePackage{xeCJK}
+\setmainfont{Times New Roman}
+\setCJKmainfont[AutoFakeBold=1.8,ItalicFont=KaiTi]{SimSun}
+\newCJKfontfamily\cuheiti{heiti}[AutoFakeBold=1.8]
+\newCJKfontfamily\cusongti{SimSun}[AutoFakeBold=1.8]
+\setmonofont[Mapping=tex-text]{Consolas}
+\linespread{1.5}\selectfont
+\ziju{-0.0001} % 调整字距和word一致
 
-
-\def\label@cntitle{题目}
 
 % 这些命令用于设定各项文档信息的具体内容。
 \newcommand\@classifiedindex{}
 \newcommand\@udc{}
-\newcommand\@paperno{}
 \newcommand\@statesecrets{}
+\newcommand\@paperno{}
 \newcommand\@cntitle{}
 \newcommand\@cnsubtitle{}
 \newcommand\@cnsubsubtitle{}
@@ -74,6 +78,8 @@
 \newcommand\@major{}
 \newcommand\@supervisor{}
 \newcommand\@completedate{}
+\newcommand\@cnkeywords{}
+\newcommand\@enkeywords{}
 
 \newcommand\classifiedindex[1]{\renewcommand\@classifiedindex{#1}}
 \newcommand\udc[1]{\renewcommand\@udc{#1}}
@@ -91,43 +97,34 @@
 \newcommand\major[1]{\renewcommand\@major{#1}}
 \newcommand\supervisor[1]{\renewcommand\@supervisor{#1}}
 \newcommand\completedate[1]{\renewcommand\@completedate{#1}}
+\newcommand\cnkeywords[1]{\renewcommand\@cnkeywords{#1}}
+\newcommand\enkeywords[1]{\renewcommand\@enkeywords{#1}}
 
-% 判断论文类别，定义不同论文名称
-\ifthenelse{\equal{\thesistype}{1}}{
-    \def\thesisname{硕士研究生学位论文}
-    \def\CHSauthortype{研究生}
-    \def\ENGauthortype{Postgraduate}
-    \def\TypeAbbr{MSc Degree}
-}{}
-
-\newcommand\hwbox[3]{
-    \begin{minipage}[c][#1]{#2}
-        #3
-    \end{minipage}
-}
 
 % 定义\fillinblank命令，用下划线填充指定的空间。
-\newcommand{\fillinblank}[2]{
-    \CJKunderline[thickness=0.8pt,depth=2em]{\makebox[#1]{#2}}
+%\newcommand{\fillinblank}[2]{
+%    \CJKunderline[thickness=0.8pt,depth=2em]{\makebox[#1]{#2}}
+%}
+\newcommand{\makecoverINFOcell}[1]{
+    \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{ \zihao{-3}\textbf{#1}}}
+}
+\newcommand{\vspaceinrow}[1]{
+    \specialrule{0em}{0mm}{#1}
 }
 
-\newcommand\coveritembox[1]{
-    \vspace{-4mm}
-    \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{#1}}}
-}
-\newcolumntype{V}{>{\centering\arraybackslash}m{3em}}
 \newcommand{\makecover}{
 
     \begin{titlepage}
         \zihao{-4}
         \vspace*{-2mm}
-        \hspace{1.57cm}\parbox[b]{15.37cm}{
+%        \hspace{1.57cm}\parbox[b]{15.37cm}{
+        \hspace{0.599cm}\parbox[b]{15.37cm}{
             \makebox[2.65cm][c]{\textbf{分类号}}
             %1.5mm, 1.1mm是单元格边距
-            \hspace{1.5mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@classifiedindex}}}\hspace{1.3mm}
+            \hspace{1mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@classifiedindex}}}\hspace{1.2mm}
             \makebox[3cm][c]{\textbf{密级}}
             \hspace{1.1mm}\CJKunderline[thickness=1.3pt,]{\makebox[4.39cm][c]{\textbf{\@statesecrets}}}
-            \\[1mm]
+            \\[-0.1mm]
             \makebox[2.65cm][c]{\textbf{UDC}}
             \hspace{1.5mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@udc}}}\hspace{1.3mm}
             \makebox[3cm][c]{\textbf{学位论文编号}}
@@ -136,66 +133,387 @@
 
 
         \zihao{2}
-        \vspace{2.55cm}
-        \hspace{2.35cm}\textbf{重庆邮电大学硕士学位论文}
+        \vspace{2.35cm}
+        \hspace{1.379cm}\textbf{重庆邮电大学硕士学位论文}
 
         \zihao{-4}
-        \vspace{2.7cm}
-        \hspace{1.47cm}
-        \renewcommand{\arraystretch}{1.38}
-        \begin{tabular}{p{1.7cm}c}
-            \makebox[1.7cm][l]{\textbf{中文题目}}
-            &
-            \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@cntitle}}}
-            \\
+        \vspace{2.56cm}
+        \hspace{0.36cm}
+        \renewcommand{\arraystretch}{1.228}
+%        \begin{tabular}{p{1.7cm} c<{\rule[2mm]{0pt}{7mm}}}
+        \begin{tabular}{p{1.7cm} c}
+            \makebox[1.7cm][l]{\textbf{中文题目}} & \makecoverINFOcell{\@cntitle}       \\
             \ifthenelse{\equal{\@cnsubtitle}{}}{}{
-                &
-                \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@cnsubtitle}}}
-%                \coveritembox{\@cnsubtitle}
-                \\
+                & \makecoverINFOcell{\@cnsubtitle}    \\
             }
             \ifthenelse{\equal{\@cnsubsubtitle}{}}{}{
-                &
-                \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@cnsubsubtitle}}}
-                \\
+                & \makecoverINFOcell{\@cnsubsubtitle} \\
             }
-            \makebox[1.7cm][l]{\textbf{英文题目}}
-            &
-            \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@entitle}}}
-            \\
+            \makebox[1.7cm][l]{\textbf{英文题目}}  & \makecoverINFOcell{\@entitle}       \\
             \ifthenelse{\equal{\@ensubtitle}{}}{}{
-                &
-                \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@ensubtitle}}}
-                \\
+                & \makecoverINFOcell{\@ensubtitle}    \\
             }
             \ifthenelse{\equal{\@ensubsubtitle}{}}{}{
-                &
-                \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@ensubsubtitle}}}
-                \\
+                & \makecoverINFOcell{\@ensubsubtitle} \\
             }
-            \makebox[1.7cm][s]{\textbf{学号}}
-            &
-            \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@stuno}}}
-            \\
-            \makebox[1.7cm][s]{\textbf{姓名}}
-            &
-            \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@name}}}
-            \\
-            \makebox[1.7cm][s]{\textbf{学位类别}}
-            &
-            \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@degreeclass}}}
-            \\
-            \makebox[1.7cm][s]{\textbf{学科专业}}
-            &
-            \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@major}}}
-            \\
-            \makebox[1.7cm][s]{\textbf{指导教师}}
-            &
-            \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@supervisor}}}
-            \\
-            \makebox[1.7cm][s]{\textbf{完成日期}}
-            &
-            \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{\zihao{-3}\textbf{\@completedate}}}
+            \makebox[1.7cm][s]{\textbf{学号}}    & \makecoverINFOcell{\@stuno}         \\
+            \makebox[1.7cm][s]{\textbf{姓名}}    & \makecoverINFOcell{\@name}          \\
+            \makebox[1.7cm][s]{\textbf{学位类别}}  & \makecoverINFOcell{\@degreeclass}   \\
+            \makebox[1.7cm][s]{\textbf{学科专业}}  & \makecoverINFOcell{\@major}         \\
+            \makebox[1.7cm][s]{\textbf{指导教师}}  & \makecoverINFOcell{\@supervisor}    \\
+            \makebox[1.7cm][s]{\textbf{完成日期}}  & \makecoverINFOcell{\@completedate}\\
         \end{tabular}
     \end{titlepage}
+}
+
+
+\newcommand{\makestatement}{
+    \thispagestyle{empty}
+    \setlength{\baselineskip}{25pt}
+    \begin{center}
+        \heiti\zihao{-2} 独\hspace{0.5em}创\hspace{0.5em}性\hspace{0.5em}声\hspace{0.5em}明
+    \end{center}
+    \par 本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研
+    究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含他人
+    已经发表或撰写过的研究成果，也不包含为获得\uline{\quad 重庆邮电大学\quad}或其他单位的
+    学位或证书而使用过的材料。与我一同工作的人员对本文研究做出的贡献均已在
+    论文中作了明确的说明并致以谢意。
+
+    \par\qquad 作者签名：\hspace{5.87cm}  日期:\qquad\qquad 年\quad 月\quad 日
+
+    \begin{center}
+        \heiti\zihao{-2} \textbf{学位论文版权使用授权书}
+    \end{center}
+
+    本人完全了解\uline{\qquad 重庆邮电大学\qquad}有权保留、使用学位论文纸质版和电子版
+    的规定，即学校有权向国家有关部门或机构送交论文，允许论文被查阅和借阅等。
+    本人授权\uline{\qquad 重庆邮电大学\qquad}可以公布本学位论文的全部或部分内容，可编入有
+    关数据库或信息系统进行检索、分析或评价，可以采用影印、缩印、扫描或拷贝
+    等复制手段保存、汇编本学位论文。
+    \par\qquad（注：保密的学位论文在解密后适用本授权书。）
+    \par \vspace{25pt}
+    \par\qquad 作者签名：\hspace{5.87cm}导师签名：
+    \par\qquad 日期:\qquad\qquad 年\qquad 月\qquad 日 \hspace{3cm} 日期:\qquad\qquad 年\qquad 月\qquad 日
+
+
+}
+
+%https://www.shangmayuan.com/a/80b54c9f1c574f5982b1f69b.html
+\newcommand{\makefancyhf}[1]{
+    \fancyhf{}
+    \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.21cm}}
+    \fancyhead[R]{\songti\zihao{5} #1 \hspace{0.2cm} \vspace{0.21cm}}
+    \fancyfoot[CO,CE]{\zihao{-5}\thepage}
+}
+
+\newenvironment{cnabstract}{
+    \clearpage
+    \pagenumbering{Roman}
+    \makefancyhf{摘要}
+    \vspace*{-0.42cm}
+    \begin{center}
+        \heiti\zihao{3}
+        摘要
+    \end{center}
+    \vspace{0.33cm}
+    \par\songti\zihao{-4}
+%    http://www.texfaq.org/FAQ-linespread
+    \linespread{1.5}
+    \selectfont
+}
+{
+    \vspace{16pt}\par
+    {\textbf{\cusongti{关键词：}}} \@cnkeywords
+}
+
+\newenvironment{enabstract}{
+    \clearpage
+    \makefancyhf{Abstract}
+    \vspace*{-0.42cm}
+    \begin{center}
+        \zihao{3}
+        \textbf{Abstract}
+    \end{center}
+    \vspace{0.33cm}
+    \par\zihao{-4}
+%    http://www.texfaq.org/FAQ-linespread
+    \linespread{1.5}
+    \selectfont
+}
+{
+    \vspace{16pt}\par
+    {\textbf{\cusongti{Keywords: }}} \@enkeywords
+}
+
+
+% 使用hyperref宏包去除索引上的颜色标记
+\RequirePackage{hyperref}
+\hypersetup{pdfborder=0 0 0}
+% 使用tocloft宏包修改目录样式
+\RequirePackage{tocloft}
+%\renewcommand{\cftdot}{$\cdot$}
+\renewcommand{\cftdotsep}{0.5}
+%\setlength{\cftbeforechapskip}{10pt}
+
+\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+
+%\renewcommand\cftchapafterpnum{\vskip      -18pt}
+%\renewcommand\cftsecafterpnum{\vskip       -18pt}
+%\renewcommand\cftsubsecafterpnum{\vskip    1pt}
+\setlength{\cftbeforechapskip}  {0em}
+\renewcommand\cftchappagefont{\normalfont}
+
+\renewcommand\contentsname{目录}
+\renewcommand{\cfttoctitlefont}{\hfill\zihao{3}\rm\heiti}
+\renewcommand{\cftchapfont}{\normalfont}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftaftertoctitle}{\hfill}
+%此处魔改目录标题前间距
+\renewcommand{\cftbeforetoctitleskip}{8pt}
+\renewcommand{\cftaftertoctitleskip}{10pt}
+
+\renewcommand\listfigurename{图录}
+\renewcommand\listtablename{表录}
+\renewcommand{\cftloftitlefont}{\hfill\zihao{3}\rm\heiti}
+\renewcommand{\cftlottitlefont}{\hfill\zihao{3}\rm\heiti}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftafterlottitle}{\hfill}
+%此处魔改目录标题前间距
+\renewcommand{\cftbeforeloftitleskip}{8pt}
+\renewcommand{\cftbeforelottitleskip}{8pt}
+\renewcommand{\cftafterloftitleskip}{10pt}
+\renewcommand{\cftafterlottitleskip}{10pt}
+
+\setcounter{secnumdepth}{3}     % 设定章节计数深度
+\setcounter{tocdepth}{2}        % 设置目录计数深度
+
+\newcommand{\maketoc}{
+    \clearpage
+    \makefancyhf{目录}
+    \tableofcontents
+    \thispagestyle{fancy}
+}
+
+\newcommand{\makefigtablist}{
+    \clearpage
+    \makefancyhf{图录}
+    \listoffigures
+    \addcontentsline{toc}{chapter}{图录}
+    \thispagestyle{fancy}
+
+    \clearpage
+    \makefancyhf{表录}
+    \listoftables
+    \addcontentsline{toc}{chapter}{表录}
+    \thispagestyle{fancy}
+    \clearpage
+}
+
+\newcommand\makecommenttable[1]{
+    \addcontentsline{toc}{chapter}{注释表}
+    \makefancyhf{注释表}
+    \begin{center}
+        \heiti\zihao{3}
+        注释表
+    \end{center}
+
+    \begin{tabular}{p{2.4cm}p{12cm}}
+        #1\\
+    \end{tabular}
+    \clearpage
+}
+
+
+%数学环境
+\RequirePackage{unicode-math}
+\newtheoremstyle{theoremdd}% name of the style to be used
+{0pt}% measure of space to leave above the theorem. E.g.: 3pt
+{0pt}% measure of space to leave below the theorem. E.g.: 3pt
+{\normalfont}% name of font to use in the body of the theorem
+{0pt}% measure of space to indent
+{\bfseries}% name of head font
+{}% punctuation between head and body
+{ }% space after theorem head; " " = normal interword space
+{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
+\theoremstyle{theoremdd}
+\newtheorem{example}{例}             % 整体编号
+\newtheorem{algorithm}{算法}
+\newtheorem{theorem}{定理}[section]  % 按 section 编号
+\newtheorem{definition}{定义}[section]
+\newtheorem{axiom}{公理}
+\newtheorem{property}{性质}
+\newtheorem{proposition}{命题}
+\newtheorem{lemma}{引理}
+\newtheorem{corollary}{推论}
+\newtheorem{remark}{注解}
+\newtheorem{condition}{条件}
+\newtheorem{conclusion}{结论}
+\newtheorem{assumption}{假设}
+\newtheorem{pproof}{证明}[chapter]
+
+\RequirePackage{listings}
+
+
+\newcommand\initmaincontent{
+    \fancyhf{}
+    \pagestyle{fancy}
+    \pagenumbering{arabic}
+    \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.21cm}}
+    \fancyhead[R]{\songti\zihao{5} \leftmark \vspace{0.21cm}}
+    \fancyfoot[CO,CE]{\zihao{-5}\thepage}
+}
+
+%脚注https://www.cnblogs.com/ahhylau/p/4588939.html
+\RequirePackage[bottom,perpage,hang]{footmisc}
+% 生成带圈的脚注数字，最多处理到 10。
+\newcommand\thu@circled[1]{%
+    \ifnum#1 >10\relax
+    \thu@error{%
+        Too many footnotes in this page.
+        Keep footnote less than 10%
+    }%
+    \fi
+    {\ding{\the\numexpr\value{#1}+171\relax}}%
+}
+\renewcommand{\thefootnote}{\ding{\numexpr171+\value{footnote}}}
+\renewcommand{\thempfootnote}{\ding{\numexpr171+\value{footnote}}}
+
+%定义脚注分割线，字号（宋体小五），以及悬挂缩进（1.5 字符）。
+%https://tex.stackexchange.com/questions/198150/move-footnoterule-to-right
+\def\footnoterule{\moveright3cm\vbox{\vskip-3\p@\hrule\@width0.4\textwidth\@height0.4\p@\vskip2.6\p@}}
+
+%https://tex.stackexchange.com/questions/96116/is-this-the-right-way-to-format-foot-notes/96401#96401
+\usepackage{scrextend}
+\deffootnote[2em]{0em}{2em}{\thefootnotemark}
+
+\let\origfootnote\footnote
+\renewcommand{\footnote}[1]{
+    \begingroup
+    \origfootnote{
+        \linespread{1.5}
+        \selectfont#1}%
+    \endgroup
+}
+
+
+% CTEX设置各级标题对齐方式，字号，字体及前后段间距
+\renewcommand{\theparagraph}{(\arabic{paragraph})}
+\ctexset{
+% “章节”标题，三号黑体，居中对齐，段前为24pt，段后18pt
+    chapter= {
+        pagestyle={fancy},
+        format+={\rm\zihao{3}\heiti\bfseries},
+        number={\arabic{chapter}},
+        numberformat={\normalfont},
+% 设置序号和各级标题之间为一个空格，这里范例和写作说明不一致
+        aftername={\hspace{\ccwd}},
+        beforeskip={0pt},
+        afterskip={16.5pt}
+    },
+% “节”标题，四号黑体，左对齐，段前24pt，段后16pt
+    section={
+        format+={\rm\zihao{-3}\heiti\bfseries\flushleft},
+        numberformat={\normalfont},
+% 设置序号和各级标题之间为两个空格，这里范例和写作说明不一致
+        aftername={\hspace{\ccwd}},
+        beforeskip={13pt},
+        afterskip={13pt}
+    },
+% “小节”标题，小四号黑体，左对齐，段前12pt，段后6pt
+    subsection={
+        format+={\zihao{4}\rm\heiti\flushleft},
+        numberformat={\normalfont},
+% 设置序号和各级标题之间为一个空格，这里范例和写作说明不一致
+        aftername={\hspace{\ccwd}},
+        beforeskip={13pt},
+        afterskip={13pt}
+    },
+% “次小节”标题，小四号楷体，左对齐，段前12pt，段后6pt
+    subsubsection={
+        format+={\cusongti\bfseries},
+        number={\hspace{\ccwd}\hspace{\ccwd}\arabic{subsubsection}.},
+% 设置序号和各级标题之间为一个空格，这里范例和写作说明不一致
+%        aftername={\quad},
+        beforeskip={0pt},
+        afterskip={0pt}
+    }
+}
+
+% 定义 \incite 命令，用于如“文献[1]”这样的引用
+\newcommand*{\incite}{}
+\DeclareRobustCommand*{\incite}[1]{
+    \begingroup
+% \romannumeral-`\x
+    \setcitestyle{numbers}
+    \hspace{-1em}~\cite{#1}\hspace{-0.3em}
+    \endgroup
+}
+
+
+% GBT7714-2015引用格式
+\RequirePackage[sort&compress]{gbt7714}
+% 使用natbib宏包修改参考文献段间距
+\RequirePackage{natbib}
+\setlength{\bibsep}{0pt}
+% 定义参考文献环境
+\newenvironment{reference}{
+    \bibliographystyle{gbt7714-numerical}
+    \cleardoublepage
+    \zihao{5}}{
+}
+
+
+\newcommand{\makeappendix}{
+    \appendix
+    \titlecontents{chapter}[0pt]
+    {\fontsize{12pt}{12pt}}{附录{\thecontentslabel}\quad}{}{\titlerule*[5pt]{.}\contentspage}
+    \titleformat{\chapter}{\centering\heiti\fontsize{16pt}{16pt}\selectfont}
+    {附录\thechapter }{5pt}{}
+}
+
+\newenvironment{acknowledgements}{%
+    \cleardoublepage
+    \chapter*{致谢}%
+    \addcontentsline{toc}{chapter}{致谢}
+    \markboth{致谢}{}
+    }{%
+}
+
+
+\newenvironment{mastermainwork}{%
+    \clearpage
+    \@mainmatterfalse
+%    \thu@chapter*{\thu@resume@name}%
+    \ctexset{
+        section = {
+            format += \centering,
+            numbering = false,
+        },
+        subsection = {
+            format = \sffamily\fontsize{14bp}{20bp}\selectfont,
+            numbering = false,
+        },
+    }%
+    \section*{攻读硕士学位期间从事的科研工作及取得的成果}
+
+    \addcontentsline{toc}{chapter}{攻读硕士学位期间从事的科研工作及取得的成果}
+    \markboth{攻读硕士学位期间从事的科研工作及取得的成果}{}
+    }{}
+\newlist{achievements}{enumerate}{1}
+\setlist[achievements]{
+    label = [\arabic*],
+    align = left,
+    leftmargin = 10mm,
+    topsep = 6bp,
+    parsep = 0bp,
+    partopsep = 0bp,
+    itemsep = 6bp,
+    labelsep = !,
+    before = {},
+}
+\newenvironment{publications}{%
+    \begin{achievements}%
+    }{%
+    \end{achievements}%
 }

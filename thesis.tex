@@ -1,47 +1,237 @@
 %! Author = lsc
 %! Date = 2021/1/9
+
 %!TEX program = xelatex
 % Preamble
-\documentclass[professional,master]{cqupt_thesis}
+\documentclass{cqupt_thesis}
 
 % Packages
-\usepackage{amsmath}
+%\usepackage{showframe}
 
 % Document
 \begin{document}
-
-    % 设置文档信息
-\unitid{10610} % 单位代码
-\STUnumber{xxxxxxxxxxxxxxx} % 学号或送审编号
-\securityClassification{秘密} % 密级：公开/内部/秘密/机密/绝密。当不使用secret时，不显示
-\securityYear{3} % 保密年限
-\CoverTitle{论文标题可能很长} %封面标题
-\CoverSubTitle{所以你可以把一部分放到副标题里} %可做封面副标题
-\title{论文标题可能很长所以你可以把一部分放到副标题里} % 论文全称
-\ENGtitle{Title of graduate thesis could be very very long but do not worry it will break the line automatically……} %论文全称英文
-% \school{\zihao{5}{这里是特别长的单位名称甚至一行不能显示}} % 如果太长超出一行，可以根据显示效果修改字号，这里为5号字
-\school{计算机学院} % 培养单位
-\ENGschool{Computer Science} % 培养单位英文
-\author{XXX} % 作者姓名
-\ENGauthor{Kevin T. Lee} % 作者英文名
-\supervisor{XXX\quad 教授} % 指导教师
-\ENGsupervisor{Prof. XXX} % 指导教师英文
-\degreeclass{工程硕士} % 学位类别
-\ENGdegreeclass{Master of Engineering} % 学位类别英文
-\major{计算机技术/具体领域} % 学科专业或领域名称
-\ENGmajor{Computer Technology} % 学科专业或领域名称英文
-\hasmajor{1} % 若有领域则为1，否则改为0
-\defensedate{二〇二〇年二月} % 论文答辩时间
-\grantdate{二〇二〇年二月} % 学位授予时间
-\accomplishdate{二〇二〇年二月} % 论文完成时间
-\statementdate{February, 2020} % 声明时间
-\direction{XXX}
-\ENGdirection{Direction Name}
-\keywords{研究生学位论文；写作指南；参考模板}
-\ENGkeywords{graduate thesis;writing guide;reference template}
+%    ------论文信息填充
+    \cntitle{重庆邮电大学硕士学位论文写作模板}
+    \cnsubtitle{（写作模板）V1.1} % 论文题目太长，可以使用副标题
+%    \cnsubsubtitle{长标题} % 论文题目还是太长，可以使用副副标题
+    \entitle{Thesis Template for Master's}
+    \ensubtitle{Degree of Chongqing University}
+    \ensubsubtitle{of Posts and Telecommunications}
+    \stuno{学号}
+    \name{姓名}
+    \degreeclass{工学硕士/理学硕士/工程硕士}
+    \major{计算机技术}
+    \supervisor{姓名\quad  职称}
+    \completedate{2019年2月2日}
+    \classifiedindex{TP391} % 分类号
+    \udc{004} % udc
+    \statesecrets{公开} % 密级
+    \paperno{D-10617-308-(2020)-02048} % 学位论文编号
 
 
-% 自动制作封面
-\maketitle
+
+    \makecover % 制作封面
+    \makestatement % 制作声明页
+
+    \cnkeywords{学位论文，论文格式，规范化，模板} % 中文关键字
+    \enkeywords{thesis, format, standardization, template} % 英文关键字
+
+%    ------中文摘要内容
+    \begin{cnabstract}
+
+        学位论文是研究生从事科研工作的成果的主要表现，它集中表明了作者在研究工作中获得的新发明、新理论或新见解，是研究生申请学位的重要依据，也是科研领域中的重要文献资料和社会的宝贵财富。为了提高研究生学位论文的质量，做到学位论文在内容和格式上的规范化与统一化，特制作本模板。
+        论文摘要是论文内容不加注释和评论的简短陈述，应以第三人称陈述，用语力求简洁、准确。中文摘要字数原则上为600-800字，外文翻译应与中文内容一致，一般不超过700个实词。摘要的编写应遵循下列原则：
+
+        1. 摘要应具有独立性和自含性，即不阅读论文的全文，就能获得必要的信息。摘要是学位论文的浓缩，简明扼要地介绍了学位论文的主要内容、见解及结论。
+
+        2. 摘要中要有数据、有结论，是一篇完整的短文，可以独立使用，可以引用。
+
+        3. 摘要内容应尽可能包括原论文的主要信息，供读者确定有无必要阅读全文，也供文摘汇编等二次文献采用。
+
+        4. 摘要一般应说明研究工作的目的意义、主要问题、研究内容、研究方法、研究结果、主要结论及意义、创造性成果和新见解，而重点是结果和结论。
+
+        5. 摘要要用文字表达，不用图、表、化学结构式、公式、非公知公用的符号和术语、上下标以及其他特殊符号。
+
+        关键词是为了文献标引工作从论文中选取出来用以表示全文主题内容信息的单词或术语。自定义3-5个关键词，按外延由大到小排列，建议采用EI标准检索词，关键词间用逗号分开。如有可能，应尽量用《汉语主题词表》等词表提供的规范词。
+
+        “摘要”二字为黑体三号字居中，是一级标题。摘要与内容之间不空行，摘要内容与关键词间空一行。“关键词”三个字采用宋体小四号字加粗。摘要内容和关键词采用中文宋体、英文Times New Roman，小四号字，1.5倍行距。
+
+    \end{cnabstract}
+
+
+%    ------英文摘要内容
+    \begin{enabstract}
+
+        Thesis is postgraduate’s main academic performance to display her/his works of scientific research, which shows the author’s new invention, new theory or new opinion in her/his research. It is the crucial document for the graduate students to apply for degree, and it is also the important scientific research literature and the valuable wealth of society. In order to improve the quality of postgraduate’s thesis, this template is formulated to standardize and unify the thesis’s content and format.
+        Abstract is a brief statement of the thesis without notes and comments, which should be stated in the third person with concise and accurate language in 600-800 Chinese characters and less than 700 words in foreign languages. The writing of an abstract should follow these principles:
+
+        1. Abstract should be independent and self contained, which can offer the necessary information without reading the full text. It is the miniature and abbreviation of a thesis, which contains the thesis’s main points, views and conclusions in a short and clear way.
+
+        2. Abstract is a complete short essay with data and conclusion, which can be adopted and referred to independently.
+
+        3. Abstract should include main information of the original thesis as far as possible for the reader to determine whether to read the full text, which can also be applied for secondary sources.
+
+        4. Abstract should generally state out clearly the purpose, significance, problem, methods, results, main conclusion and its significance, creative achievements and new insights of the research program, and the results and conclusions should be emphasized.
+
+        5. Abstract should be written in words without any appended drawings and photos. Unless there is no alternative way available, abstract should be presented without graphs, tables, chemical structural equations, non-public common symbols and terminology, subscripts, and other special symbols. It is the best policy to highlight the key points clearly with less data tables.
+
+        Keywords are words or terms selected from the thesis for literature indexing to represent the topic information entry. Generally, a thesis should have 3-5 keywords, which should be arranged from broad to narrow entry according to the principle of epitaxial order. EI standard retrieval words are recommended. The keywords should be separated by a comma and there is no punctuation after the last word. If possible, it is better to use the standard words from Chinese Thesauri and other dictionaries of the same type.
+
+        Abstract should be centered in bold-3 word size. It is the primary heading without any blank line between the word “abstract” and its content. But there should be one blank line between the abstract content and the key words. The “keywords” should be in bold Song typeface with small-four word size. The content and the key words are written in Chinese song typeface, English Times New Roman, small-four word size and 1.5 spaced.
+
+    \end{enabstract}
+
+    \maketoc % 制作目录
+
+    \makefigtablist % 制作表录、图录
+
+%   ------注释表
+    \makecommenttable{
+        UDC & Universal Decimal Classification，国际十进分类法\\
+        IMRAD & Introduction，Material and Method，Results，and Discussion(Conclusion)\\
+        GPS & Global Positioning System，全球定位系统\\
+        RFD & Reduced-function Device，精简功能设备\\
+        RFID & Radio Frequency Identification，射频识别\\
+        LONGLONGLONGLONGTEST & IAMLONGIAMLONGIAMLONGIAMLONGIAMLONG，我很长我很长我很长
+    }
+
+
+    \initmaincontent % 正文内容准备初始化
+
+    \chapter{引言}
+
+    制定本模板的目的是为了统一规范我校硕士学位论文的格式，保证学位论文的质量。本章说明了本模板的制定依据、学位论文要求、封面规范和以及学位论文中的引言目的、构成和写作要求。
+
+    \section{格式模板的依据和使用说明}
+
+    \subsection{学位论文模板依据}
+
+    学位论文是研究生从事科研工作的成果的主要表现，它集中表明了作者在研究工作中获得的新的发明、理论或见解，是研究生申请学位的重要依据，也是科研领域中的重要文献资料和社会的宝贵财富。硕士学位论文应能表明作者已在本门学科上掌握了坚实的基础理论和系统的专业知识，并对所研究课题有新的见解，有从事科学研究工作或独立担负专门技术工作的能力[1] 。
+
+    本模板主要参照《学位论文编写规则》（GB/T7713.1-2006，中国国家标准局2006年发布并实施）[1]、科学出版社出版的《作者编辑手册》[2]、全国科学道德和学风建设宣传教育领导小组制定的《科学道德与学风建设宣讲参考大纲（试用本）》（2011年11月）[3] 、《文后参考文献著录规则》（GB/T7714-2005，中国国家标准局2005年发布并实施）[4]等制定。
+
+    部分范例来自《障碍环境中Swarm突现计算模型研究及行为控制》[5]等重庆邮电大学硕士学位论文。
+
+    \subsection{本模板使用说明}
+    本模板是2015年首次发布并将在重庆邮电大学研究生撰写硕士学位论文工作中推广。
+
+    特别要说明的是，因为参考资料来源众多，首次发布的工作时间有限，引用内容可能存在标注不全、格式欠规范之处，敬请谅解。本文中凡有不规范或不明之处，以国家标准规范为准，研究生院负责解释。对发现的问题，将在后续版本中及时完善。
+
+    本标准采用PDF、Word两种文本格式发布，满足大多数研究生和导师需要，便于师生交互式修订论文。其中，PDF版本为最终样式参考，如有不同，以此为准。为方便工作，广大研究生可直接采用Office 2013版，在本模板的Word文档中撰写论文，但应注意不要随意修改格式或刷新格式（因为Word软件的原因容易导致格式混乱），编辑从其他地方拷贝文字时应消除外来格式。下一步，除了对Word模板进行进一步的样式规范外，将陆续公布Latex、WPS等模板供研究生使用。
+
+
+    \section{封面}
+
+    \subsection{分类号、UDC编号、学位论文编号和密级}
+
+    \subsubsection{分类号}
+    分类号指中图分类号，是指采用《中国图书馆分类法》（原称《中国图书馆图书分类法》，简称《中图法》）对科技文献进行主题分析，并依照文献内容的学科属性和特征，分门别类地组织文献，所获取的分类代号。采用1999年出版的第四版《中图法》\footnote{
+        图分类号的类目名称：+ A马克思主义、列宁主义、毛泽东思想、邓小平理论；+ B哲学、宗教；+ C 社会科学总论；+ D政治、法律；+ E军事；+ F经济；+ G文化、科学、教育、体育；+ H语言、文字；+ I文学；+ J艺术；+ K历史、地理；+ N 自然科学总论；+ O 数理科学和化学；+ P天文学、地球科学；+ Q生物科学；+ R医药、卫生；+ S农业科学；+ T工业技术；TB一般工业技术；TD矿业工程；TE石油、天然气工业；TF冶金工业；TG金属学与金属工艺；TH机械、仪表工业；TJ武器工业；TK能源与动力工程；TL原子能技术；TM电工技术；TN无线电电子学、电信技术；TP自动化技术、计算机技术；TQ化学工业；TS轻工业、手工业；TU建筑科学；TV水利工程；+ U交通运输；+ V航空、航天；+ X环境科学、安全科学；+ Z 综合性图书。}可以在http://www.33tt.com/tools/ztf（中国图书馆分类法中图分类号查询系统）或http://lib.jzit.edu.cn/sjk/tsflf/index.htm（中图法第四版计算机辅助分类查询系统）中查询。填写要求：要求分类细分到22个大类代码后三位数字。如：TN929。
+
+    \subsubsection{UDC编号}
+    UDC即国际十进分类法(Universal Decimal Classification)，是国际通用的多文种综合性文献分类法。UDC采用单纯阿拉伯数字作为标记符号。它用个位数(0～9)标记一级类，十位数(00～99)标记二级类，百位数(000～999)标记三级类，以下每扩展（细分）一级，就加一位数。每三位数字后加一小数点。如电气工程类的论文，其UDC编号为：621.3。
+
+
+    \chapter{正文内容及文字格式}
+    论文正文是主体，是学位论文的核心部分，占主要篇幅。本章说明论文正文的组成部分、写作要求和方法以及论文的字数要求。
+
+
+    \section{论文正文}
+    论文内容一般应由10个主要部分组成，依次为：封面，中文摘要，英文摘要，目录，图录、表录、注释表，论文正文，参考文献，附录，致谢，攻读学位期间发表的成果目录。
+
+    论文正文占主要篇幅。一般由标题、文字叙述、图、表格和公式等5个部分构成。写作形式可因研究课题性质不同而变化，论文正文一般包括：引言（或绪论）、文献综述（可在引言部分给出）、理论基础、计算方法、实验装置和测试方法，经过整理加工的实验结果的分析讨论、见解和推论，与理论计算结果的比较以及本研究方法与已有研究方法的比较等。要求概念清晰，数据可靠，分析严谨，立论正确，要能反映出学位论文的学术水平。
+
+    除了第1章引言（或绪论）和结论章，每章结束都应该有小结。
+
+    论文应根据内容的相对独立性划分各章，每章的内容精简后可作为期刊论文发表，各章的顺序安排应考虑论文内容的逻辑性。各章之间应重新分页，章的标题在起始页。
+
+    正文有多种分段形式，对科技论文而言，可以采用IMRAD分段形式。IMRAD是Introduction，Material and Method，Results，and Discussion(Conclusion)的首字母缩写，即引言、材料与方法、结果与讨论，这是科技论文最好的结构之一。具体说明如下：
+
+
+    \chapter{其他格式定义}
+
+
+    \section{时域积分方程时间步进算法矩阵方程的求解}
+    \begin{theorem}
+        如果时域混合场积分方程是时域电场积分方程与时域磁场积分方程的线性组合。
+    \end{theorem}
+
+    重庆邮电大学召开建校70周年纪念大会 正式启动“世界一流学科攀登计划”
+
+    \begin{pproof}
+        由于时域混合场积分方程是时域电场积分方程与时域磁场积分方程的线性组合，因此时域混合场积分方程时间步进算法的阻抗矩阵特征与时域电场积分方程时间步进算法的阻抗矩阵特征相同。
+    \end{pproof}
+
+    重庆邮电大学召开建校70周年纪念大会 正式启动“世界一流学科攀登计划”
+
+    \begin{corollary}
+        时域积分方程方法的研究近几年发展迅速，在本文研究工作的基础上，仍有以下方向值得进一步研究。
+    \end{corollary}
+
+    重庆邮电大学召开建校70周年纪念大会 正式启动“世界一流学科攀登计划”
+
+    \begin{lemma}[芜湖]
+        因此时域混合场积分方程时间步进算法的阻抗矩阵特征与时域电场积分方程时间步进算法的阻抗矩阵特征相同。
+    \end{lemma}
+
+    \begin{lemma}
+        因此时域混合场积分方程时间步进算法的阻抗矩阵特征与时域电场积分方程时间步进算法的阻抗矩阵特征相同。
+    \end{lemma}
+
+    % 代码环境
+    \begin{lstlisting}[language = c, numbers=left,
+    numberstyle=\tiny,keywordstyle=\color{blue!70},
+    commentstyle=\color{red!50!green!50!blue!50},frame=shadowbox,
+    rulesepcolor=\color{red!20!green!20!blue!20},basicstyle=\ttfamily]
+	其他数学环境定义对应命令：
+	{example}{例}           
+	{algorithm}{算法}
+	{theorem}{定理}
+	{definition}{定义}
+	{axiom}{公理}
+	{property}{性质}
+	{proposition}{命题}
+	{lemma}{引理}
+	{corollary}{推论}
+	{remark}{注解}
+	{condition}{条件}
+	{conclusion}{结论}
+	{assumption}{假设}
+	{pproof}{证明}[chapter]
+
+    \end{lstlisting}
+
+
+
+    \begin{reference}
+        \bibliography{ref}
+    \end{reference}
+
+    \appendix
+
+
+    \chapter{科技写作中非学术性低级错误的主要表现}
+
+
+    \section{哈哈}
+
+
+    \begin{acknowledgements}
+        谢谢~！
+    \end{acknowledgements}
+
+    \begin{mastermainwork}
+        \subsection*{学术论文}
+        \begin{achievements}
+            \item 哈哈哈
+            \item 哈哈哈
+        \end{achievements}
+        \subsection*{专利}
+        \begin{achievements}
+            \item 哈哈哈
+            \item 哈哈哈
+        \end{achievements}
+    \end{mastermainwork}
+
 
 \end{document}
