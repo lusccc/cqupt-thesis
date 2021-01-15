@@ -50,15 +50,25 @@
 % 页眉页脚、线
 \pagestyle{fancy}
 \renewcommand\headrulewidth{0.7pt}
-% 正文字体
+
+% 正文字体、段落设置
 \RequirePackage{xeCJK}
+\xeCJKsetup{CJKglue=\hspace{10pt plus .08 \baselineskip }}
+\xeCJKsetup{RubberPunctSkip=false}
+\xeCJKsetup{PunctStyle=plain} % 標點符號一概全形
+\xeCJKsetup{CheckSingle=true} % 首字不放行尾，似乎不太有用
+
 \setmainfont{Times New Roman}
 \setCJKmainfont[AutoFakeBold=1.8,ItalicFont=KaiTi]{SimSun}
 \newCJKfontfamily\cuheiti{heiti}[AutoFakeBold=1.8]
 \newCJKfontfamily\cusongti{SimSun}[AutoFakeBold=1.8]
 \setmonofont[Mapping=tex-text]{Consolas}
 \linespread{1.5}\selectfont
-\ziju{-0.0001} % 调整字距和word一致
+%\punctstyle{plain} % 使得中文标点符号后的距离和word一致
+%\renewcommand{\CJKglue}{\hskip 2pt plus 0.08\baselineskip} %
+
+%\ziju{-0.002}
+%\ziju{-0.0021}
 
 
 % 这些命令用于设定各项文档信息的具体内容。
@@ -108,9 +118,6 @@
 \newcommand{\makecoverINFOcell}[1]{
     \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{ \zihao{-3}\textbf{#1}}}
 }
-\newcommand{\vspaceinrow}[1]{
-    \specialrule{0em}{0mm}{#1}
-}
 
 \newcommand{\makecover}{
 
@@ -149,53 +156,60 @@
             \ifthenelse{\equal{\@cnsubsubtitle}{}}{}{
                 & \makecoverINFOcell{\@cnsubsubtitle} \\
             }
-            \makebox[1.7cm][l]{\textbf{英文题目}}  & \makecoverINFOcell{\@entitle}       \\
+            \makebox[1.7cm][l]{\textbf{英文题目}} & \makecoverINFOcell{\@entitle}       \\
             \ifthenelse{\equal{\@ensubtitle}{}}{}{
                 & \makecoverINFOcell{\@ensubtitle}    \\
             }
             \ifthenelse{\equal{\@ensubsubtitle}{}}{}{
                 & \makecoverINFOcell{\@ensubsubtitle} \\
             }
-            \makebox[1.7cm][s]{\textbf{学号}}    & \makecoverINFOcell{\@stuno}         \\
-            \makebox[1.7cm][s]{\textbf{姓名}}    & \makecoverINFOcell{\@name}          \\
-            \makebox[1.7cm][s]{\textbf{学位类别}}  & \makecoverINFOcell{\@degreeclass}   \\
-            \makebox[1.7cm][s]{\textbf{学科专业}}  & \makecoverINFOcell{\@major}         \\
-            \makebox[1.7cm][s]{\textbf{指导教师}}  & \makecoverINFOcell{\@supervisor}    \\
-            \makebox[1.7cm][s]{\textbf{完成日期}}  & \makecoverINFOcell{\@completedate}\\
+            \makebox[1.7cm][s]{\textbf{学号}}   & \makecoverINFOcell{\@stuno}         \\
+            \makebox[1.7cm][s]{\textbf{姓名}}   & \makecoverINFOcell{\@name}          \\
+            \makebox[1.7cm][s]{\textbf{学位类别}} & \makecoverINFOcell{\@degreeclass}   \\
+            \makebox[1.7cm][s]{\textbf{学科专业}} & \makecoverINFOcell{\@major}         \\
+            \makebox[1.7cm][s]{\textbf{指导教师}} & \makecoverINFOcell{\@supervisor}    \\
+            \makebox[1.7cm][s]{\textbf{完成日期}} & \makecoverINFOcell{\@completedate}  \\
         \end{tabular}
     \end{titlepage}
 }
 
-
 \newcommand{\makestatement}{
-    \thispagestyle{empty}
-    \setlength{\baselineskip}{25pt}
-    \begin{center}
-        \heiti\zihao{-2} 独\hspace{0.5em}创\hspace{0.5em}性\hspace{0.5em}声\hspace{0.5em}明
-    \end{center}
-    \par 本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研
-    究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含他人
-    已经发表或撰写过的研究成果，也不包含为获得\uline{\quad 重庆邮电大学\quad}或其他单位的
-    学位或证书而使用过的材料。与我一同工作的人员对本文研究做出的贡献均已在
-    论文中作了明确的说明并致以谢意。
+        {
+        \clearpage
+        \thispagestyle{empty}
+        \setlength{\baselineskip}{25pt}
+        \vspace*{-1.35cm}
+        \begin{center}
+            \heiti\zihao{-2} 独\hspace{0.5em}创\hspace{0.5em}性\hspace{0.5em}声\hspace{0.5em}明
+        \end{center}
+        \vspace{-0.5mm}
+        \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip}
+        \par 本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含他人
+    已经发表或撰写过的研究成果，也不包含为获得\CJKunderline[thickness=0.6pt,depth=0.12em]{\quad 重庆邮电大学\quad}或其他单位的
+    学位或证书而使用过的材料。与我一同工作的人员对本文研究做出的贡献均已在论文中作了明确的说明并致以谢意。
+        \\
+        \par  作者签名：\hspace{5.5cm}  日期：\hspace{1.32cm} 年\hspace{0.54cm} 月\hspace{0.54cm} 日
 
-    \par\qquad 作者签名：\hspace{5.87cm}  日期:\qquad\qquad 年\quad 月\quad 日
-
-    \begin{center}
-        \heiti\zihao{-2} \textbf{学位论文版权使用授权书}
-    \end{center}
-
-    本人完全了解\uline{\qquad 重庆邮电大学\qquad}有权保留、使用学位论文纸质版和电子版
+        \vspace{3.71cm}
+        \begin{center}
+            \heiti\zihao{-2} \textbf{学位论文版权使用授权书}
+        \end{center}
+        \vspace{1.4mm}
+        % 服了，上面25磅，这里24磅，
+        \setlength{\baselineskip}{24pt}
+        \renewcommand{\CJKglue}{\hskip -0.2pt plus 0.08\baselineskip}
+        % 注意 1个\quad = 1em = 2个word中文空格
+        \par  本人完全了解\CJKunderline[thickness=0.6pt,depth=0.12em]{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}有权保留、使用学位论文纸质版和电子版
     的规定，即学校有权向国家有关部门或机构送交论文，允许论文被查阅和借阅等。
-    本人授权\uline{\qquad 重庆邮电大学\qquad}可以公布本学位论文的全部或部分内容，可编入有
+    本人授权\CJKunderline[thickness=0.6pt,depth=0.12em]{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}可以公布本学位论文的全部或部分内容，可编入有
     关数据库或信息系统进行检索、分析或评价，可以采用影印、缩印、扫描或拷贝
     等复制手段保存、汇编本学位论文。
-    \par\qquad（注：保密的学位论文在解密后适用本授权书。）
-    \par \vspace{25pt}
-    \par\qquad 作者签名：\hspace{5.87cm}导师签名：
-    \par\qquad 日期:\qquad\qquad 年\qquad 月\qquad 日 \hspace{3cm} 日期:\qquad\qquad 年\qquad 月\qquad 日
-
-
+        \par（注：保密的学位论文在解密后适用本授权书。）
+        \par \vspace{26pt}
+        \par 作者签名：\hspace{5.5 cm}导师签名：
+        \vspace{4pt}
+        \par 日期:\qquad\qquad 年\hspace{1.5em} 月\hspace{1.5em} 日 \hspace{2.02cm} 日期:\hspace{1.26cm} 年\hspace{1.5em} 月\hspace{1.5em} 日
+    }
 }
 
 %https://www.shangmayuan.com/a/80b54c9f1c574f5982b1f69b.html
@@ -216,7 +230,7 @@
         摘要
     \end{center}
     \vspace{0.33cm}
-    \par\songti\zihao{-4}
+    \par
 %    http://www.texfaq.org/FAQ-linespread
     \linespread{1.5}
     \selectfont
