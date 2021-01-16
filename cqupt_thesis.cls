@@ -36,7 +36,7 @@
 \RequirePackage{geometry}%使用geometry调整边距
 \geometry{a4paper,papersize={21cm,29.7cm}}
 %http://www.ctex.org/documents/packages/layout/geometry.htm
-\geometry{left=3.5cm,right=2.45cm,top=3cm,bottom=3cm,footskip=1.3cm,headsep=0.75cm,headheight=1.5cm}
+\geometry{left=3.5cm,right=2.45cm,top=3cm,bottom=2.3cm,footskip=1.3cm,headsep=0.75cm,headheight=1.5cm}
 
 % 页眉页脚、线
 \pagestyle{fancy}
@@ -189,9 +189,47 @@
     }
 }
 
-%摘要及之后正文，小四1.5倍行距等同的linespread=1.62
+%摘要及之后中文的正文，小四1.5倍行距等同的linespread=1.62
 %https://www.jianshu.com/p/9c0d74d741dd
 \linespread{1.62}\selectfont
+
+% CTEX设置各级标题对齐方式，字号，字体及前后段间距
+%使用 fixskip 来抑制标题的额外间距。这里的 beforeskip 和 afterskip
+%是与 Word 样例对比后通过尝试得出的。
+\renewcommand{\theparagraph}{(\arabic{paragraph})}
+\ctexset{
+    chapter= {
+        pagestyle={fancy},
+        format+={\rm\zihao{3}\heiti\bfseries},
+        number={\arabic{chapter}},
+        numberformat={\normalfont},
+        aftername={\hspace{\ccwd}},
+        beforeskip={19pt},
+        afterskip={33pt},
+        fixskip=true
+    },
+    section={
+        format+={\rm\zihao{-3}\heiti\bfseries\flushleft},
+        numberformat={\normalfont},
+        aftername={\hspace{\ccwd}},
+        beforeskip={13pt},
+        afterskip={13pt}
+    },
+    subsection={
+        format+={\zihao{4}\rm\heiti\flushleft},
+        numberformat={\normalfont},
+        aftername={\hspace{\ccwd}},
+        beforeskip={13pt},
+        afterskip={13pt}
+    },
+    subsubsection={
+        format+={\cusongti\bfseries},
+        number={\hspace{\ccwd}\hspace{\ccwd}\arabic{subsubsection}.},
+%        aftername={\quad},
+        beforeskip={0pt},
+        afterskip={0pt}
+    }
+}
 
 %https://www.shangmayuan.com/a/80b54c9f1c574f5982b1f69b.html
 \newcommand{\makefancyhf}[1]{
@@ -222,19 +260,19 @@
 \newenvironment{enabstract}{
     \clearpage
     \makefancyhf{Abstract}
-    \vspace*{-0.42cm}
-    \begin{center}
-        \zihao{3}
-        \textbf{Abstract}
-    \end{center}
-    \vspace{0.33cm}
-    \par\zihao{-4}
-%    http://www.texfaq.org/FAQ-linespread
-    \linespread{1.5}
-    \selectfont
+%    \vspace*{-0.667cm}
+%    \begin{center}
+%        \zihao{3}
+%        \textbf{Abstract}
+%    \end{center}
+%    \vspace*{0.28cm}
+    \chapter*{Abstract}
+    \par
+    % word中英文的1.5倍行距对应的是1.44
+    \linespread{1.44}\selectfont
 }
 {
-    \vspace{16pt}\par
+    \vspace{21pt}\par
     {\textbf{\cusongti{Keywords: }}} \@enkeywords
 }
 
@@ -390,48 +428,6 @@
 }
 
 
-% CTEX设置各级标题对齐方式，字号，字体及前后段间距
-\renewcommand{\theparagraph}{(\arabic{paragraph})}
-\ctexset{
-% “章节”标题，三号黑体，居中对齐，段前为24pt，段后18pt
-    chapter= {
-        pagestyle={fancy},
-        format+={\rm\zihao{3}\heiti\bfseries},
-        number={\arabic{chapter}},
-        numberformat={\normalfont},
-% 设置序号和各级标题之间为一个空格，这里范例和写作说明不一致
-        aftername={\hspace{\ccwd}},
-        beforeskip={0pt},
-        afterskip={16.5pt}
-    },
-% “节”标题，四号黑体，左对齐，段前24pt，段后16pt
-    section={
-        format+={\rm\zihao{-3}\heiti\bfseries\flushleft},
-        numberformat={\normalfont},
-% 设置序号和各级标题之间为两个空格，这里范例和写作说明不一致
-        aftername={\hspace{\ccwd}},
-        beforeskip={13pt},
-        afterskip={13pt}
-    },
-% “小节”标题，小四号黑体，左对齐，段前12pt，段后6pt
-    subsection={
-        format+={\zihao{4}\rm\heiti\flushleft},
-        numberformat={\normalfont},
-% 设置序号和各级标题之间为一个空格，这里范例和写作说明不一致
-        aftername={\hspace{\ccwd}},
-        beforeskip={13pt},
-        afterskip={13pt}
-    },
-% “次小节”标题，小四号楷体，左对齐，段前12pt，段后6pt
-    subsubsection={
-        format+={\cusongti\bfseries},
-        number={\hspace{\ccwd}\hspace{\ccwd}\arabic{subsubsection}.},
-% 设置序号和各级标题之间为一个空格，这里范例和写作说明不一致
-%        aftername={\quad},
-        beforeskip={0pt},
-        afterskip={0pt}
-    }
-}
 
 % 定义 \incite 命令，用于如“文献[1]”这样的引用
 \newcommand*{\incite}{}
