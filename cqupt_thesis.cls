@@ -7,6 +7,7 @@
 %  咱们重邮模板是oneside的！
 \LoadClass[a4paper,UTF8,oneside, openany, zihao=-4,AutoFakeBold]{ctexbook}
 
+\RequirePackage{float}
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{pifont}
@@ -45,7 +46,7 @@
 % 字体、段落设置
 \RequirePackage{xeCJK}
 \xeCJKsetup{CheckSingle=true} % 首字不放行尾，似乎不太有用
-\punctstyle{plain} % 使得中文标点符号后的距离和word一致
+\punctstyle{hangmobanjiao} % 行末半角，使得中文标点符号后的距离和word一致
 \setmainfont{Times New Roman}
 \setCJKmainfont[AutoFakeBold=1.8,ItalicFont=KaiTi]{SimSun}
 \newCJKfontfamily\cuheiti{heiti}[AutoFakeBold=1.8]
@@ -174,7 +175,8 @@
         \vspace{1.4mm}
         % 服了，上面25磅，这里24磅，
         \setlength{\baselineskip}{24pt}
-        \renewcommand{\CJKglue}{\hskip -0.2pt plus 0.08\baselineskip}
+        \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip}
+%        \renewcommand{\CJKglue}{\hskip -0.2pt plus 0.08\baselineskip}
         % 注意 1个\quad = 1em = 2个word中文空格
         \par  本人完全了解\CJKunderline[thickness=0.6pt,depth=0.12em]{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}有权保留、使用学位论文纸质版和电子版
     的规定，即学校有权向国家有关部门或机构送交论文，允许论文被查阅和借阅等。
@@ -192,6 +194,7 @@
 %摘要及之后中文的正文，小四1.5倍行距等同的linespread=1.62
 %https://www.jianshu.com/p/9c0d74d741dd
 \linespread{1.62}\selectfont
+\renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip} % 0.08字距调整至和word一样
 
 % CTEX设置各级标题对齐方式，字号，字体及前后段间距
 %使用 fixskip 来抑制标题的额外间距。这里的 beforeskip 和 afterskip
@@ -369,18 +372,21 @@
     \thispagestyle{fancy}
     \clearpage
 }
-
+\usepackage{ragged2e}
+\newcolumntype{P}[1]{>{\RaggedRight\hspace{0pt}}p{#1}} % 固定宽度列、居左
 \newcommand\makecommenttable[1]{
     \addcontentsline{toc}{chapter}{注释表}
     \makefancyhf{注释表}
-    \begin{center}
-        \heiti\zihao{3}
-        注释表
-    \end{center}
-
-    \begin{tabular}{l{2.4cm}l{12cm}}
-        #1\\
-    \end{tabular}
+    \chapter*{注释表}
+    \vspace{-0.7cm}
+    \renewcommand{\arraystretch}{1.6}
+    \begin{table}[H]
+        \hspace{-9pt}
+%    \centering
+        \begin{tabular}{P{1.8cm}P{13cm}}
+            #1\\
+        \end{tabular}
+    \end{table}
     \clearpage
 }
 
