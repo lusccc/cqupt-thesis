@@ -10,8 +10,6 @@
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{pifont}
-
-
 % 解图表目录引用编号顺序问题
 \RequirePackage{notoccite}
 % 加入hyperref超链接参考
@@ -19,7 +17,6 @@
 % fancyhdr 宏包提供了方便使用的命令用于设置页眉、页脚。
 \RequirePackage{fancyhdr}
 \RequirePackage{titletoc}
-
 % 加入判断支持
 \RequirePackage{ifthen}
 % 此宏包提供图形支持。
@@ -30,46 +27,32 @@
 \RequirePackage{array}
 \RequirePackage{setspace}
 \usepackage{booktabs}
-
 \RequirePackage{enumitem}
-
-
-%pdfpages 宏包便于我们插入扫描后的授权说明和声明页 PDF 文档。
+%TODO pdfpages 宏包便于我们插入扫描后的授权说明和声明页 PDF 文档。
 \RequirePackage{pdfpages}
 \includepdfset{fitpaper=true}
 
-
 % 以下是一些文档默认设置：
-%使用geometry调整边距
-\RequirePackage{geometry}
+\RequirePackage{geometry}%使用geometry调整边距
 \geometry{a4paper,papersize={21cm,29.7cm}}
 %http://www.ctex.org/documents/packages/layout/geometry.htm
-\geometry{left=3.5cm,right=2.45cm,top=3cm,bottom=3cm,footskip=1.3cm,headsep=0.89cm,headheight=1.5cm}
-%\geometry{left=2.5cm,right=2.5cm,top=3cm,bottom=3cm,footskip=1.3cm,headsep=0.89cm,headheight=1.5cm}
-% bottom为2.5 + 0.5cm，考虑到footer的高度，这样与word一致
+\geometry{left=3.5cm,right=2.45cm,top=3cm,bottom=3cm,footskip=1.3cm,headsep=0.75cm,headheight=1.5cm}
+
 % 页眉页脚、线
 \pagestyle{fancy}
-\renewcommand\headrulewidth{0.7pt}
+\renewcommand\headrulewidth{0.8pt}
 
-% 正文字体、段落设置
+% 字体、段落设置
 \RequirePackage{xeCJK}
-\xeCJKsetup{CJKglue=\hspace{10pt plus .08 \baselineskip }}
-\xeCJKsetup{RubberPunctSkip=false}
-\xeCJKsetup{PunctStyle=plain} % 標點符號一概全形
 \xeCJKsetup{CheckSingle=true} % 首字不放行尾，似乎不太有用
-
+\punctstyle{plain} % 使得中文标点符号后的距离和word一致
 \setmainfont{Times New Roman}
 \setCJKmainfont[AutoFakeBold=1.8,ItalicFont=KaiTi]{SimSun}
 \newCJKfontfamily\cuheiti{heiti}[AutoFakeBold=1.8]
 \newCJKfontfamily\cusongti{SimSun}[AutoFakeBold=1.8]
 \setmonofont[Mapping=tex-text]{Consolas}
+% ！封面至声明页 行距设为1.5，注意不等同于word的1.5倍行距
 \linespread{1.5}\selectfont
-%\punctstyle{plain} % 使得中文标点符号后的距离和word一致
-%\renewcommand{\CJKglue}{\hskip 2pt plus 0.08\baselineskip} %
-
-%\ziju{-0.002}
-%\ziju{-0.0021}
-
 
 % 这些命令用于设定各项文档信息的具体内容。
 \newcommand\@classifiedindex{}
@@ -90,7 +73,6 @@
 \newcommand\@completedate{}
 \newcommand\@cnkeywords{}
 \newcommand\@enkeywords{}
-
 \newcommand\classifiedindex[1]{\renewcommand\@classifiedindex{#1}}
 \newcommand\udc[1]{\renewcommand\@udc{#1}}
 \newcommand\paperno[1]{\renewcommand\@paperno{#1}}
@@ -110,11 +92,6 @@
 \newcommand\cnkeywords[1]{\renewcommand\@cnkeywords{#1}}
 \newcommand\enkeywords[1]{\renewcommand\@enkeywords{#1}}
 
-
-% 定义\fillinblank命令，用下划线填充指定的空间。
-%\newcommand{\fillinblank}[2]{
-%    \CJKunderline[thickness=0.8pt,depth=2em]{\makebox[#1]{#2}}
-%}
 \newcommand{\makecoverINFOcell}[1]{
     \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{ \zihao{-3}\textbf{#1}}}
 }
@@ -183,7 +160,7 @@
             \heiti\zihao{-2} 独\hspace{0.5em}创\hspace{0.5em}性\hspace{0.5em}声\hspace{0.5em}明
         \end{center}
         \vspace{-0.5mm}
-        \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip}
+        \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip} % 字距调整至和word一样
         \par 本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含他人
     已经发表或撰写过的研究成果，也不包含为获得\CJKunderline[thickness=0.6pt,depth=0.12em]{\quad 重庆邮电大学\quad}或其他单位的
     学位或证书而使用过的材料。与我一同工作的人员对本文研究做出的贡献均已在论文中作了明确的说明并致以谢意。
@@ -212,11 +189,15 @@
     }
 }
 
+%摘要及之后正文，小四1.5倍行距等同的linespread=1.62
+%https://www.jianshu.com/p/9c0d74d741dd
+\linespread{1.62}\selectfont
+
 %https://www.shangmayuan.com/a/80b54c9f1c574f5982b1f69b.html
 \newcommand{\makefancyhf}[1]{
     \fancyhf{}
-    \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.21cm}}
-    \fancyhead[R]{\songti\zihao{5} #1 \hspace{0.2cm} \vspace{0.21cm}}
+    \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.22cm}}
+    \fancyhead[R]{\songti\zihao{5} #1 \hspace{0.2cm} \vspace{0.22cm}}
     \fancyfoot[CO,CE]{\zihao{-5}\thepage}
 }
 
@@ -224,19 +205,17 @@
     \clearpage
     \pagenumbering{Roman}
     \makefancyhf{摘要}
-    \vspace*{-0.42cm}
+    \vspace*{-0.78cm}
     \begin{center}
         \heiti\zihao{3}
         摘要
     \end{center}
-    \vspace{0.33cm}
+    \vspace{0.23cm}
     \par
-%    http://www.texfaq.org/FAQ-linespread
-    \linespread{1.5}
-    \selectfont
+    \renewcommand{\CJKglue}{\hskip -0.22pt plus 0.01\baselineskip} % 0.01表示汉字间距离可伸缩
 }
 {
-    \vspace{16pt}\par
+    \vspace{21pt}\par
     {\textbf{\cusongti{关键词：}}} \@cnkeywords
 }
 
