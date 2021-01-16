@@ -203,7 +203,8 @@
         format+={\rm\zihao{3}\heiti\bfseries},
         number={\arabic{chapter}},
         numberformat={\normalfont},
-        aftername={\hspace{\ccwd}},
+%        aftername={\hspace{\ccwd}},
+        aftername={\hspace{0.5em}},
         beforeskip={19pt},
         afterskip={33pt},
         fixskip=true
@@ -211,14 +212,16 @@
     section={
         format+={\rm\zihao{-3}\heiti\bfseries\flushleft},
         numberformat={\normalfont},
-        aftername={\hspace{\ccwd}},
+        aftername={\hspace{0.5em}},
+%        aftername={\hspace{\ccwd}},
         beforeskip={13pt},
         afterskip={13pt}
     },
     subsection={
         format+={\zihao{4}\rm\heiti\flushleft},
         numberformat={\normalfont},
-        aftername={\hspace{\ccwd}},
+        aftername={\hspace{0.5em}},
+%        aftername={\hspace{\ccwd}},
         beforeskip={13pt},
         afterskip={13pt}
     },
@@ -270,16 +273,20 @@
     \par
     % word中英文的1.5倍行距对应的是1.44
     \linespread{1.44}\selectfont
-}
-{
+    }
+    {
     \vspace{21pt}\par
     {\textbf{\cusongti{Keywords: }}} \@enkeywords
 }
 
-
+% ------开始设置 目录样式
 % 使用hyperref宏包去除索引上的颜色标记
 \RequirePackage{hyperref}
 \hypersetup{pdfborder=0 0 0}
+% 把表录、图录、参考文献 加入目录
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+
+
 % 使用tocloft宏包修改目录样式
 \RequirePackage{tocloft}
 %\renewcommand{\cftdot}{$\cdot$}
@@ -289,35 +296,57 @@
 \renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 
+% 控制目录内容的行距
 %\renewcommand\cftchapafterpnum{\vskip      -18pt}
 %\renewcommand\cftsecafterpnum{\vskip       -18pt}
 %\renewcommand\cftsubsecafterpnum{\vskip    1pt}
 \setlength{\cftbeforechapskip}  {0em}
 \renewcommand\cftchappagefont{\normalfont}
 
+% 目录两字标题的设置，toc
 \renewcommand\contentsname{目录}
 \renewcommand{\cfttoctitlefont}{\hfill\zihao{3}\rm\heiti}
+\renewcommand{\cftbeforetoctitleskip}{8pt}%此处魔改 目录 大标题行距
+\renewcommand{\cftaftertoctitleskip}{10pt}
+\renewcommand{\cftaftertoctitle}{\hfill}%相当于均匀排布、居中
+
+% 目录内容章、节 lof lob 设置
 \renewcommand{\cftchapfont}{\normalfont}
 \renewcommand{\cftsecfont}{\normalfont}
-\renewcommand{\cftaftertoctitle}{\hfill}
-%此处魔改目录标题前间距
-\renewcommand{\cftbeforetoctitleskip}{8pt}
-\renewcommand{\cftaftertoctitleskip}{10pt}
-
 \renewcommand\listfigurename{图录}
 \renewcommand\listtablename{表录}
 \renewcommand{\cftloftitlefont}{\hfill\zihao{3}\rm\heiti}
 \renewcommand{\cftlottitlefont}{\hfill\zihao{3}\rm\heiti}
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftafterlottitle}{\hfill}
-%此处魔改目录标题前间距
-\renewcommand{\cftbeforeloftitleskip}{8pt}
+\renewcommand{\cftbeforeloftitleskip}{8pt}%此处魔改 表录、图录 大标题行距，下同
 \renewcommand{\cftbeforelottitleskip}{8pt}
 \renewcommand{\cftafterloftitleskip}{10pt}
 \renewcommand{\cftafterlottitleskip}{10pt}
 
 \setcounter{secnumdepth}{3}     % 设定章节计数深度
 \setcounter{tocdepth}{2}        % 设置目录计数深度
+
+% 调整序号和标题名称之间的空隙为word中的一个空格， 调整缩进
+%\setlength\cftchapnumwidth{-100cm}
+%这个不行https://gitee.com/wuzhouhui/awk/blob/8a8c3a25d8191d9808339aeb7358366bbbd245aa/latex_src/preamble.tex
+%\settowidth\cftchapnumwidth{第十章} % 最宽的可能编号
+%这个行
+\renewcommand{\cftchapaftersnumb}{\hspace{-0.45em}}
+\setlength\cftsecnumwidth{0.5em}
+\setlength\cftsubsecnumwidth{0.5em}
+\setlength\cftsecindent{0.7cm}% Indent
+\setlength\cftsubsecindent{1.43cm}% Indent
+
+% 使得 点线与页码数字 之间的空隙减少
+%https://tex.stackexchange.com/questions/196416/dotted-leader-does-not-reach-the-page-number-in-toc
+\usepackage{everypage}
+\usepackage{calc}
+\AddEverypageHook{\addtocontents{toc}{
+    \protect\cftsetpnumwidth{\widthof{\thepage}-0.02em}
+}}
+
+% ------结束设置 目录样式
 
 \newcommand{\maketoc}{
     \clearpage
@@ -330,13 +359,13 @@
     \clearpage
     \makefancyhf{图录}
     \listoffigures
-    \addcontentsline{toc}{chapter}{图录}
+%    \addcontentsline{toc}{chapter}{图录}
     \thispagestyle{fancy}
 
     \clearpage
     \makefancyhf{表录}
     \listoftables
-    \addcontentsline{toc}{chapter}{表录}
+%    \addcontentsline{toc}{chapter}{表录}
     \thispagestyle{fancy}
     \clearpage
 }
@@ -349,7 +378,7 @@
         注释表
     \end{center}
 
-    \begin{tabular}{p{2.4cm}p{12cm}}
+    \begin{tabular}{l{2.4cm}l{12cm}}
         #1\\
     \end{tabular}
     \clearpage
@@ -428,7 +457,6 @@
 }
 
 
-
 % 定义 \incite 命令，用于如“文献[1]”这样的引用
 \newcommand*{\incite}{}
 \DeclareRobustCommand*{\incite}[1]{
@@ -453,13 +481,12 @@
 }
 
 
-\newcommand{\makeappendix}{
+
+\newcommand{\beginappendix}{
     \appendix
-    \titlecontents{chapter}[0pt]
-    {\fontsize{12pt}{12pt}}{附录{\thecontentslabel}\quad}{}{\titlerule*[5pt]{.}\contentspage}
-    \titleformat{\chapter}{\centering\heiti\fontsize{16pt}{16pt}\selectfont}
-    {附录\thechapter }{5pt}{}
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 }
+
 
 \newenvironment{acknowledgements}{%
     \cleardoublepage
@@ -501,6 +528,7 @@
     labelsep = !,
     before = {},
 }
+
 \newenvironment{publications}{%
     \begin{achievements}%
     }{%
