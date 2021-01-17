@@ -104,7 +104,7 @@
 
     \begin{titlepage}
         \zihao{-4}
-        \vspace*{-2mm}
+        \vspace*{-4.2mm}
 %        \hspace{1.57cm}\parbox[b]{15.37cm}{
         \hspace{0.599cm}\parbox[b]{15.37cm}{
             \makebox[2.65cm][c]{\textbf{分类号}}
@@ -114,9 +114,9 @@
             \hspace{1.1mm}\CJKunderline[thickness=1.3pt,]{\makebox[4.39cm][c]{\textbf{\@statesecrets}}}
             \\[-0.1mm]
             \makebox[2.65cm][c]{\textbf{UDC}}
-            \hspace{1.5mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@udc}}}\hspace{1.3mm}
+            \hspace{1.5mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@udc}}}\hspace{1.1mm}
             \makebox[3cm][c]{\textbf{学位论文编号}}
-            \hspace{1.1mm}\CJKunderline[thickness=1.3pt,]{\makebox[4.39cm][c]{\textbf{\@paperno}}}
+            \hspace{0.2mm}\CJKunderline[thickness=1.3pt,]{\makebox[4.39cm][c]{\textbf{\@paperno}}}
         }
 
 
