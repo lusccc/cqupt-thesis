@@ -25,5 +25,5 @@
 ## 有问题欢迎post issue
 
 ### 制作模板不易，可不可以打赏我一瓶冰阔落：
-![](https://github.com/lusccc/cqupt-thesis/figs/wechat.jpg)
-![](https://github.com/lusccc/cqupt-thesis/figs/alipay.jpg)
+![](https://github.com/lusccc/cqupt-thesis/blob/main/figs/alipay.JPG?raw=true)
+![](https://github.com/lusccc/cqupt-thesis/blob/main/figs/wechat.JPG?raw=trueg)
