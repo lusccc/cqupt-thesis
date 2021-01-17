@@ -293,7 +293,7 @@
 
 
 % 使用tocloft宏包修改目录样式
-\RequirePackage{tocloft}
+\RequirePackage[subfigure]{tocloft} % 兼容subfigure
 %\renewcommand{\cftdot}{$\cdot$}
 \renewcommand{\cftdotsep}{0.5}
 %\setlength{\cftbeforechapskip}{10pt}
@@ -423,6 +423,26 @@
 \RequirePackage{listings}
 
 
+% 图、表 格式
+%\captionsetup[table]{position=top,belowskip=6bp,aboveskip=0bp,singlelinecheck=true}
+%\captionsetup[figure]{position=bottom,belowskip=0bp,aboveskip=6bp}
+\RequirePackage[font=small,]{caption}
+\captionsetup[table]{skip=0pt}
+\captionsetup[figure]{skip=0pt}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabular}{\zihao{5}}
+\AtEndEnvironment{tabular}{\vspace{-0.08cm}}%缩小表格后间隔
+\AtBeginEnvironment{figure}{\zihao{5}}
+\AtEndEnvironment{figure}{\vspace{-0.08cm}}
+\usepackage{subfigure}
+%\AtBeginEnvironment{subfigure}{\zihao{5}}
+%\renewenvironment{table}%
+%  {\zihao{5}
+%   \@float{table}}
+%  {\end@float}
+
+
+
 \newcommand\initmaincontent{
     \fancyhf{}
     \pagestyle{fancy}
@@ -466,7 +486,6 @@
     }%
     \endgroup
 }
-
 
 % 定义 \incite 命令，用于如“文献[1]”这样的引用
 \newcommand*{\incite}{}

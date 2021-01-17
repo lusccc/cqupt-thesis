@@ -145,16 +145,58 @@
     论文内容一般应由10个主要部分组成，依次为：封面，中文摘要，英文摘要，目录，图录、表录、注释表，论文正文，参考文献，附录，致谢，攻读学位期间发表的成果目录。
 
     论文正文占主要篇幅。一般由标题、文字叙述、图、表格和公式等5个部分构成。写作形式可因研究课题性质不同而变化，论文正文一般包括：引言（或绪论）、文献综述（可在引言部分给出）、理论基础、计算方法、实验装置和测试方法，经过整理加工的实验结果的分析讨论、见解和推论，与理论计算结果的比较以及本研究方法与已有研究方法的比较等。要求概念清晰，数据可靠，分析严谨，立论正确，要能反映出学位论文的学术水平。
-
-    除了第1章引言（或绪论）和结论章，每章结束都应该有小结。
-
-    论文应根据内容的相对独立性划分各章，每章的内容精简后可作为期刊论文发表，各章的顺序安排应考虑论文内容的逻辑性。各章之间应重新分页，章的标题在起始页。
-
-    正文有多种分段形式，对科技论文而言，可以采用IMRAD分段形式。IMRAD是Introduction，Material and Method，Results，and Discussion(Conclusion)的首字母缩写，即引言、材料与方法、结果与讨论，这是科技论文最好的结构之一。具体说明如下：
-
-
-    \chapter{其他格式定义}
-
+    \section{字数要求}
+    硕士学位论文字数一般不少于3万字。但论文撰写不严格限制必须3万字以上，以实际撰写内容是否完备、体现水平为参考依据。一般情况下，论文全部篇幅不少于40页，其中以论文工作描述为主（正文章节内容至少占全部篇幅75%）。
+    
+    \chapter{注释、图表、公式和计量单位格式}
+    \section{图表格式}
+    表注主要包括三种情况：资料来源（说明表中数据的文献来源，可用标题上引用参考文献、表下说明出处或脚注三种方式之一给出）、普通注解（对表中的数据处理的说明）、特殊注解（对某一个或几个表栏项目进行特别说明），如表\ref{电流类型对效率的影响}所示。
+    \begin{table}[H]% H代表就插在此位置
+    	\centering
+    	\caption{电流类型对效率的影响}
+    	\label{电流类型对效率的影响}
+    	\begin{tabular}{p{3.5cm}p{3.5cm}p{3.5cm}p{3.5cm}} 
+    		\hline
+    		电流类型                 &  {$ A_1^* $}                      & {$ W_{bc}/W_k^{**} $}    &  {g/\%}     \\ 
+    		\hline
+    		{$ J^2(t)=1 $}    & 4.27                               & 1.28                  & 43.9(30)            \\
+    		{$ J^2t=1 $}      & 4.64                               & 1.39                  & 41.8(29)            \\
+    		{$ J^2t=1-t $}    & 3.28                               & 0.98                  & 50.5                \\
+    		\hline
+    		\multicolumn{4}{p{15cm}}{
+    			资料来源：Wang Ying et al.2004.Physics of Electric Launch.Science Press。
+    			
+    			注：括号内的数字表明了$ W_{in}\neq0 $的情况；*表示$ v_{p0}/v_{pf}=0 $，**表示$ h=20mm,L_rL_r^\prime=0.628\mu H/m,l_g=2m,v_{pf}=3km/s $。
+    		}
+    	\end{tabular}
+    \end{table}
+	表名中不允许使用标点符号，表名后不加标点。表名与正文之间不空行。数字空缺的格内加横线“－”（占2个数字宽度）。
+	
+	表内文字或数字上、下或左、右相同时，采用通栏处理方式（合并单元格），表内文字或数字上、下或左、右相同时，采用通栏处理方式(合并单元格)，或一律填上具体数字或文字，不允许用“〃”“同上”之类的写法。
+	
+	
+	\begin{figure}[H]
+		\centering
+		
+		\subfigure[\zihao{5}平均个体聚类度变化图]{
+			\begin{minipage}[t]{0.5\linewidth}
+				\centering
+				\includegraphics[width=5cm]{figs/图片1}
+				%\caption{fig1}
+			\end{minipage}%
+		}%
+		\subfigure[\zihao{5}邻域个体分布指数变化图]{
+			\begin{minipage}[t]{0.5\linewidth}
+				\centering
+				\includegraphics[width=5cm]{figs/图片4}
+				%\caption{fig2}
+			\end{minipage}%
+		}%
+		
+		\centering
+		\caption{ 标示群体突现时刻的指标变化图\cite{陈浩元2015gb} }
+	\end{figure}
+	曲线图的纵横坐标必须标注“量、标准规定符号、单位”。此三者只有在不必要标明（如无量纲等）的情况下方可省略。坐标上标注的量的符号和缩略词必须与正文一致。
 
     \section{时域积分方程时间步进算法矩阵方程的求解}
     \begin{theorem}
@@ -184,27 +226,27 @@
     \end{lemma}
 
     % 代码环境
-    \begin{lstlisting}[language = c, numbers=left,
-    numberstyle=\tiny,keywordstyle=\color{blue!70},
-    commentstyle=\color{red!50!green!50!blue!50},frame=shadowbox,
-    rulesepcolor=\color{red!20!green!20!blue!20},basicstyle=\ttfamily]
-	其他数学环境定义对应命令：
-	{example}{例}           
-	{algorithm}{算法}
-	{theorem}{定理}
-	{definition}{定义}
-	{axiom}{公理}
-	{property}{性质}
-	{proposition}{命题}
-	{lemma}{引理}
-	{corollary}{推论}
-	{remark}{注解}
-	{condition}{条件}
-	{conclusion}{结论}
-	{assumption}{假设}
-	{pproof}{证明}[chapter]
+%    \begin{lstlisting}[language = c, numbers=left,
+%    numberstyle=\tiny,keywordstyle=\color{blue!70},
+%    commentstyle=\color{red!50!green!50!blue!50},frame=shadowbox,
+%    rulesepcolor=\color{red!20!green!20!blue!20},basicstyle=\ttfamily]
+%	其他数学环境定义对应命令：
+%	{example}{例}           
+%	{algorithm}{算法}
+%	{theorem}{定理}
+%	{definition}{定义}
+%	{axiom}{公理}
+%	{property}{性质}
+%	{proposition}{命题}
+%	{lemma}{引理}
+%	{corollary}{推论}
+%	{remark}{注解}
+%	{condition}{条件}
+%	{conclusion}{结论}
+%	{assumption}{假设}
+%	{pproof}{证明}[chapter]
 
-    \end{lstlisting}
+%    \end{lstlisting}
 
 
 
