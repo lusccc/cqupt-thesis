@@ -37,7 +37,7 @@
 \RequirePackage{geometry}%使用geometry调整边距
 \geometry{a4paper,papersize={21cm,29.7cm}}
 %http://www.ctex.org/documents/packages/layout/geometry.htm
-\geometry{left=3.5cm,right=2.45cm,top=3cm,bottom=2.3cm,footskip=1.3cm,headsep=0.75cm,headheight=1.5cm}
+\geometry{left=3.5cm,right=2.45cm,top=3.1cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
 
 % 页眉页脚、线
 \pagestyle{fancy}
@@ -231,6 +231,8 @@
     subsubsection={
         format+={\cusongti\bfseries},
         number={\hspace{\ccwd}\hspace{\ccwd}\arabic{subsubsection}.},
+        aftername={\hspace{0.3em}},
+%        number={\hspace{\ccwd}\hspace{\ccwd}\arabic{subsubsection}.},
 %        aftername={\quad},
         beforeskip={0pt},
         afterskip={0pt}
@@ -427,7 +429,7 @@
     \pagenumbering{arabic}
     \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.21cm}}
     \fancyhead[R]{\songti\zihao{5} \leftmark \vspace{0.21cm}}
-    \fancyfoot[CO,CE]{\zihao{-5}\thepage}
+    \fancyfoot[CO,CE]{\vspace{0.004cm}\zihao{-5}\thepage}
 }
 
 %脚注https://www.cnblogs.com/ahhylau/p/4588939.html
@@ -442,23 +444,26 @@
     \fi
     {\ding{\the\numexpr\value{#1}+171\relax}}%
 }
-\renewcommand{\thefootnote}{\ding{\numexpr171+\value{footnote}}}
-\renewcommand{\thempfootnote}{\ding{\numexpr171+\value{footnote}}}
+\renewcommand{\thefootnote}{\zihao{6}\ding{\numexpr171+\value{footnote}}}
+\renewcommand{\thempfootnote}{\zihao{6}\ding{\numexpr171+\value{footnote}}}
 
 %定义脚注分割线，字号（宋体小五），以及悬挂缩进（1.5 字符）。
 %https://tex.stackexchange.com/questions/198150/move-footnoterule-to-right
-\def\footnoterule{\moveright3cm\vbox{\vskip-3\p@\hrule\@width0.4\textwidth\@height0.4\p@\vskip2.6\p@}}
-
+%                           左缩进                             分割线宽度          分割线粗细     前后间隔
+\def\footnoterule{\moveright0.8cm\vbox{\vskip0\p@\hrule\@width0.35\textwidth\@height0.6\p@\vskip3\p@}}
 %https://tex.stackexchange.com/questions/96116/is-this-the-right-way-to-format-foot-notes/96401#96401
+\setlength{\footnotesep}{16pt}
 \usepackage{scrextend}
 \deffootnote[2em]{0em}{2em}{\thefootnotemark}
-
 \let\origfootnote\footnote
 \renewcommand{\footnote}[1]{
     \begingroup
+%    \vspace{0.9em}
     \origfootnote{
-        \linespread{1.5}
-        \selectfont#1}%
+        \linespread{1.6}
+        \selectfont\zihao{6}#1
+        \vspace{3.5em}
+    }%
     \endgroup
 }
 
