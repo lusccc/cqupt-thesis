@@ -84,9 +84,27 @@
 
     \end{enabstract}
 
-    \maketoc % 制作目录
+    % 制作目录，有点不优雅，后期优化。这样做能使dot line延伸至页码
+%    https://tex.stackexchange.com/questions/134769/dotted-line-in-toc-despite-cftsetpnumwidth
+    {\def\makebox[#1][#2]#3{#3}%
+        \clearpage
+        \makefancyhf{目录}
+        \tableofcontents
+        \thispagestyle{fancy}
+    }
+    {\def\makebox[#1][#2]#3{#3}%
+        \clearpage
+        \makefancyhf{图录}
+        \listoffigures
+        \thispagestyle{fancy}
+    }
+    {\def\makebox[#1][#2]#3{#3}%
+        \clearpage
+        \makefancyhf{表录}
+        \listoftables
+        \thispagestyle{fancy}
+    }
 
-    \makefigtablist % 制作表录、图录
 
 %   ------注释表
     \makecommenttable{
@@ -199,11 +217,15 @@
         }%
 
         \centering
-        \caption{ 标示群体突现时刻的指标变化图\cite{陈浩元2015gb} }
+        % 这样做图录里可以避免出现文献上标
+        \caption[标示群体突现时刻的指标变化图]{ 标示群体突现时刻的指标变化图\cite{陈浩元2015gb} }
     \end{figure}
     曲线图的纵横坐标必须标注“量、标准规定符号、单位”。此三者只有在不必要标明（如无量纲等）的情况下方可省略。坐标上标注的量的符号和缩略词必须与正文一致。
 
-	\chapter{其他格式}
+
+    \chapter{其他格式}
+
+
     \section{数学环境}
     \begin{theorem}[Lindeberg--Lévy 中心极限定理]
         设随机变量 $X_1, X_2, \dots, X_n$ 独立同分布， 且具有期望 $\mu$ 和有限的方差 $\sigma^2 \ne 0$，
@@ -217,7 +239,8 @@
         Trivial.
     \end{proof}
 
-	\section{插入代码}
+
+    \section{插入代码}
     % 代码环境
     其他数学环境定义对应命令：
     \begin{lstlisting}[language = java, numbers=left,
@@ -240,52 +263,53 @@
 
     \end{lstlisting}
 
-	\section{算法}
-	
-	\begin{algorithm}[H] 
-		
-		\label{用归并排序求逆序数}
-		\caption{用归并排序求逆序数}  
-		\begin{algorithmic}[1] %每行显示行号  
-			\Require $Array$数组，$n$数组大小  
-			\Ensure 逆序数  
-			\Function {MergerSort}{$Array, left, right$}  
-			\State $result \gets 0$  
-			\If {$left < right$}  
-			\State $middle \gets (left + right) / 2$  
-			\State $result \gets result +$ \Call{MergerSort}{$Array, left, middle$}  
-			\State $result \gets result +$ \Call{MergerSort}{$Array, middle, right$}  
-			\State $result \gets result +$ \Call{Merger}{$Array,left,middle,right$}  
-			\EndIf  
-			\State \Return{$result$}  
-			\EndFunction  
-			\State  
-			\Function{Merger}{$Array, left, middle, right$}  
-			\State $i\gets left$  
-			\State $j\gets middle$  
-			\State $k\gets 0$  
-			\State $result \gets 0$  
-			\While{$i<middle$ \textbf{and} $j<right$}  
-			\If{$Array[i]<Array[j]$}  
-			\State $B[k++]\gets Array[i++]$  
-			\Else  
-			\State $B[k++] \gets Array[j++]$  
-			\State $result \gets result + (middle - i)$  
-			\EndIf  
-			\EndWhile  
-			\While{$i<middle$}  
-			\State $B[k++] \gets Array[i++]$  
-			\EndWhile  
-			\While{$j<right$}  
-			\State $B[k++] \gets Array[j++]$  
-			\EndWhile  
-			\For{$i = 0 \to k-1$}  
-			\State $Array[left + i] \gets B[i]$  
-			\EndFor  
-			\State \Return{$result$}  
-			\EndFunction  
-		\end{algorithmic}  
-	\end{algorithm} 
+
+    \section{算法}
+
+    \begin{algorithm}[H]
+
+        \label{用归并排序求逆序数}
+        \caption{用归并排序求逆序数}
+        \begin{algorithmic}[1] %每行显示行号
+            \Require $Array$数组，$n$数组大小
+            \Ensure 逆序数
+            \Function {MergerSort}{$Array, left, right$}
+                \State $result \gets 0$
+                \If {$left < right$}
+                    \State $middle \gets (left + right) / 2$
+                    \State $result \gets result +$ \Call{MergerSort}{$Array, left, middle$}
+                    \State $result \gets result +$ \Call{MergerSort}{$Array, middle, right$}
+                    \State $result \gets result +$ \Call{Merger}{$Array,left,middle,right$}
+                \EndIf
+                \State \Return{$result$}
+            \EndFunction
+            \State
+            \Function{Merger}{$Array, left, middle, right$}
+                \State $i\gets left$
+                \State $j\gets middle$
+                \State $k\gets 0$
+                \State $result \gets 0$
+                \While{$i<middle$ \textbf{and} $j<right$}
+                    \If{$Array[i]<Array[j]$}
+                        \State $B[k++]\gets Array[i++]$
+                    \Else
+                        \State $B[k++] \gets Array[j++]$
+                        \State $result \gets result + (middle - i)$
+                    \EndIf
+                \EndWhile
+                \While{$i<middle$}
+                    \State $B[k++] \gets Array[i++]$
+                \EndWhile
+                \While{$j<right$}
+                    \State $B[k++] \gets Array[j++]$
+                \EndWhile
+                \For{$i = 0 \to k-1$}
+                    \State $Array[left + i] \gets B[i]$
+                \EndFor
+                \State \Return{$result$}
+            \EndFunction
+        \end{algorithmic}
+    \end{algorithm}
 
 
 
@@ -298,53 +322,57 @@
 
 
     \chapter{科技写作中非学术性低级错误的主要表现}
-    
+
     本附录主要针对学位论文写作或中文科技论文写作，供重庆邮电大学硕士学位论文查非工作参考。未尽事宜，可参考重庆邮电大学论文写作要求、重庆邮电大学学报编辑部等国内期刊社、出版社的通用出版规定。
-    
+
     推荐阅读《科学出版社作者编辑手册》、《科学道德与学风建设宣传参考大纲（试用本）》等写作指导性书籍或资料，可了解更多、更详尽的通用写作出版规范。
-    
+
+
     \chapter{中国科协关于科技工作者科学道德规范（试行）}
+
+
     \section{总 则}
     第一条 为弘扬科学精神，加强科学道德和学风建设，提高科技工作者创新能力，促进科学技术的繁荣发展，中国科学技术协会根据国家有关法律法规制定《科技工作者科学道德规范》。
-    
+
     第二条 本规范适用于中国科学技术协会所属全国学会、协会、研究会会员及其他科技工作者。
-    
+
     第三条 科技工作者应坚持科学真理、尊重科学规律、崇尚严谨求实的学风，勇于探索创新，恪守职业道德，维护科学诚信。
-    
+
     第四条 科技工作者应以发展科学技术事业，繁荣学术思想，推动经济社会进步，促进优秀科技人才成长，普及科学技术知识为使命，以国家富强，民族振兴，服务人民，构建和谐社会为己任。
-    
+
+
     \section{学术道德规范}
-    
+
     第五条 进行学术研究应检索相关文献或了解相关研究成果，在发表论文或以其他形式报告科研成果中引用他人论点时必须尊重知识产权，如实标出。
-    
+
     第六条 尊重研究对象(包括人类和非人类研究对象)。在涉及人体的研究中，必须保护受试人合法权益和个人隐私并保障知情同意权。
-    
+
     第七条 在课题申报、项目设计、数据资料的采集与分析、公布科研成果、确认科研工作参与人员的贡献等方面，遵守诚实客观原则。对已发表研究成果中出现的错误和失误，应以适当的方式予以公开和承认。
-    
+
     \begin{acknowledgements}
         致谢二字一级标题：黑体3号字居中，段前17磅，段后16.5磅，1.5倍行距，致谢二字与致谢内容之间不空行。致谢内容正文样式：宋体小四号，1.5倍行距。
-        
+
         可以从下列方面致谢：
         对国家科学基金、资助研究工作的奖学金基金、合同单位、资助或支持的企业、组织或个人；
-        
+
         对协助完成研究工作和提供便利条件的组织或个人；
-        
+
         对在研究工作中提出建议和提供帮助的人；
-        
+
         对给予转载和引用权的资料、图片、文献、研究思想和设想的所有者；
-        
+
         对其他应感谢的组织或个人。主要感谢导师和对论文工作有直接贡献及帮助的人士和单位。学位申请人的家属及亲朋好友等与论文无直接关系的人员，一般不列入致谢的范围。
-        
+
         致谢辞应谦虚诚恳，实事求是，切忌浮夸与庸俗之词。
-        
+
     \end{acknowledgements}
 
     \begin{mastermainwork}
         \section*{参与科研项目：}
         \begin{achievements}
-            \item 项目名称(编号)，项目类别，项目起止  
+            \item 项目名称(编号)，项目类别，项目起止
         \end{achievements}
-    	
+
         \section*{发表及完成论文：}
         \begin{achievements}
             \item 个人成果包括论文、专利等，和毕业条件、信息系统里一致。同参考文献要求。完成人姓名用加粗。样例如下条。

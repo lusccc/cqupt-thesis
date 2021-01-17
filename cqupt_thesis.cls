@@ -294,6 +294,10 @@
 % 把表录、图录、参考文献 加入目录
 \usepackage[nottoc,notlot,notlof]{tocbibind}
 
+\ctexset{
+    figurename = 图,
+    tablename  = 表,
+}%
 
 % 使用tocloft宏包修改目录样式
 \RequirePackage[subfigure]{tocloft} % 兼容subfigure
@@ -314,8 +318,8 @@
 % 目录两字标题的设置，toc
 \renewcommand\contentsname{目录}
 \renewcommand{\cfttoctitlefont}{\hfill\zihao{3}\rm\heiti}
-\renewcommand{\cftbeforetoctitleskip}{8pt}%此处魔改 目录 大标题行距
-\renewcommand{\cftaftertoctitleskip}{10pt}
+\renewcommand{\cftbeforetoctitleskip}{-10pt}%此处魔改 目录 大标题行距
+\renewcommand{\cftaftertoctitleskip}{20pt}
 \renewcommand{\cftaftertoctitle}{\hfill}%相当于均匀排布、居中
 
 % 目录内容章、节 lof lob 设置
@@ -327,10 +331,10 @@
 \renewcommand{\cftlottitlefont}{\hfill\zihao{3}\rm\heiti}
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftafterlottitle}{\hfill}
-\renewcommand{\cftbeforeloftitleskip}{8pt}%此处魔改 表录、图录 大标题行距，下同
-\renewcommand{\cftbeforelottitleskip}{8pt}
-\renewcommand{\cftafterloftitleskip}{10pt}
-\renewcommand{\cftafterlottitleskip}{10pt}
+\renewcommand{\cftbeforeloftitleskip}{-10pt}%此处魔改 表录、图录 大标题行距，下同
+\renewcommand{\cftbeforelottitleskip}{-10pt}
+\renewcommand{\cftafterloftitleskip}{20pt}
+\renewcommand{\cftafterlottitleskip}{20pt}
 
 \setcounter{secnumdepth}{3}     % 设定章节计数深度
 \setcounter{tocdepth}{2}        % 设置目录计数深度
@@ -346,37 +350,40 @@
 \setlength\cftsecindent{0.7cm}% Indent
 \setlength\cftsubsecindent{1.43cm}% Indent
 
+\renewcommand{\cftfigpresnum}{图}
+\setlength{\cftfignumwidth}{3em}
+\renewcommand{\cfttabpresnum}{表}
+\setlength{\cfttabnumwidth}{3em}
+
 % 使得 点线与页码数字 之间的空隙减少
 %https://tex.stackexchange.com/questions/196416/dotted-leader-does-not-reach-the-page-number-in-toc
-\usepackage{everypage}
-\usepackage{calc}
-\AddEverypageHook{\addtocontents{toc}{
-    \protect\cftsetpnumwidth{\widthof{\thepage}-0.02em}
-}}
+%\usepackage{everypage}
+%\usepackage{calc}
+%\AddEverypageHook{\addtocontents{toc}{
+%    \protect\cftsetpnumwidth{\widthof{\thepage}-0.02em}
+%%    \protect\cfttofsetpnumwidth{\widthof{\thepage}-0.02em}
+%}}
 
 % ------结束设置 目录样式
 
-\newcommand{\maketoc}{
-    \clearpage
-    \makefancyhf{目录}
-    \tableofcontents
-    \thispagestyle{fancy}
-}
-
-\newcommand{\makefigtablist}{
-    \clearpage
-    \makefancyhf{图录}
-    \listoffigures
-%    \addcontentsline{toc}{chapter}{图录}
-    \thispagestyle{fancy}
-
-    \clearpage
-    \makefancyhf{表录}
-    \listoftables
-%    \addcontentsline{toc}{chapter}{表录}
-    \thispagestyle{fancy}
-    \clearpage
-}
+%\newcommand{\preparetoc}{
+%    \clearpage
+%    \makefancyhf{目录}
+%    \thispagestyle{fancy}
+%}
+%
+%\newcommand{\preparefiglist}{
+%    \clearpage
+%    \makefancyhf{图录}
+%    \thispagestyle{fancy}
+%
+%}
+%
+%\newcommand{\preparetablist}{
+%    \clearpage
+%    \makefancyhf{表录}
+%    \thispagestyle{fancy}
+%}
 \usepackage{ragged2e}
 \newcolumntype{P}[1]{>{\RaggedRight\hspace{0pt}}p{#1}} % 固定宽度列、居左
 \newcommand\makecommenttable[1]{
@@ -438,8 +445,8 @@
 %\captionsetup[table]{position=top,belowskip=6bp,aboveskip=0bp,singlelinecheck=true}
 %\captionsetup[figure]{position=bottom,belowskip=0bp,aboveskip=6bp}
 \RequirePackage[font=small,]{caption}
-\captionsetup[table]{skip=0pt}
-\captionsetup[figure]{skip=0pt}
+\captionsetup[table]{skip=0pt,labelsep=space}
+\captionsetup[figure]{skip=0pt,labelsep=space}
 \usepackage{etoolbox}
 \AtBeginEnvironment{tabular}{\zihao{5}}
 \AtEndEnvironment{tabular}{\vspace{-0.08cm}}%缩小表格后间隔
