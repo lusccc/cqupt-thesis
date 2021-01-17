@@ -8,6 +8,7 @@
 \LoadClass[a4paper,UTF8,oneside, openany, zihao=-4,AutoFakeBold]{ctexbook}
 
 \RequirePackage{float}
+\usepackage{amssymb}
 \RequirePackage{amsmath}
 %https://tex.stackexchange.com/questions/43835/conflict-between-amsthm-and-some-other-package
 \RequirePackage{amsthm}
@@ -292,7 +293,8 @@
 \RequirePackage{hyperref}
 \hypersetup{pdfborder=0 0 0}
 % 把表录、图录、参考文献 加入目录
-\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage[nottoc]{tocbibind}
+%\usepackage[nottoc,notlot,notlof]{tocbibind}
 
 \ctexset{
     figurename = 图,
@@ -409,14 +411,14 @@
 {0pt}% measure of space to leave above the theorem. E.g.: 3pt
 {0pt}% measure of space to leave below the theorem. E.g.: 3pt
 {\normalfont}% name of font to use in the body of the theorem
-{0pt}% measure of space to indent
+{2em}% measure of space to indent
 {\bfseries}% name of head font
 {}% punctuation between head and body
 { }% space after theorem head; " " = normal interword space
 {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
 \theoremstyle{theoremdd}
 
-\newtheorem*{proof}{证明}
+\newtheorem*{proof}{证明:}
 %\theoremseparator{：}
 \newtheorem{assumption}{假设}[chapter]
 \newtheorem{definition}{定义}[chapter]
