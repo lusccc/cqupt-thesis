@@ -9,7 +9,10 @@
 
 \RequirePackage{float}
 \RequirePackage{amsmath}
+%https://tex.stackexchange.com/questions/43835/conflict-between-amsthm-and-some-other-package
 \RequirePackage{amsthm}
+\let\proof\relax
+\let\endproof\relax
 \RequirePackage{pifont}
 % 解图表目录引用编号顺序问题
 \RequirePackage{notoccite}
@@ -405,23 +408,31 @@
 { }% space after theorem head; " " = normal interword space
 {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
 \theoremstyle{theoremdd}
-\newtheorem{example}{例}             % 整体编号
-\newtheorem{algorithm}{算法}
-\newtheorem{theorem}{定理}[section]  % 按 section 编号
-\newtheorem{definition}{定义}[section]
-\newtheorem{axiom}{公理}
-\newtheorem{property}{性质}
-\newtheorem{proposition}{命题}
-\newtheorem{lemma}{引理}
-\newtheorem{corollary}{推论}
-\newtheorem{remark}{注解}
-\newtheorem{condition}{条件}
-\newtheorem{conclusion}{结论}
-\newtheorem{assumption}{假设}
-\newtheorem{pproof}{证明}[chapter]
 
+\newtheorem*{proof}{证明}
+%\theoremseparator{：}
+\newtheorem{assumption}{假设}[chapter]
+\newtheorem{definition}{定义}[chapter]
+\newtheorem{proposition}{命题}[chapter]
+\newtheorem{lemma}{引理}[chapter]
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{axiom}{公理}[chapter]
+\newtheorem{corollary}{推论}[chapter]
+\newtheorem{exercise}{练习}[chapter]
+\newtheorem{example}{例}[chapter]
+\newtheorem{remark}{注释}[chapter]
+\newtheorem{problem}{问题}[chapter]
+\newtheorem{conjecture}{猜想}[chapter]
+
+% 支持显示代码
 \RequirePackage{listings}
-
+% 排版算法
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\floatname{algorithm}{算法}
+\usepackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{输入:}}
+\renewcommand{\algorithmicensure}{\textbf{输出:}}
 
 % 图、表 格式
 %\captionsetup[table]{position=top,belowskip=6bp,aboveskip=0bp,singlelinecheck=true}
@@ -532,16 +543,17 @@
     \@mainmatterfalse
 %    \thu@chapter*{\thu@resume@name}%
     \ctexset{
-        section = {
-            format += \centering,
+        chapter = {
             numbering = false,
         },
-        subsection = {
-            format = \sffamily\fontsize{14bp}{20bp}\selectfont,
+        section = {
+            format = \cusongti\zihao{-4}\bfseries,
             numbering = false,
+            beforeskip={0pt},
+            afterskip={0pt},
         },
     }%
-    \section*{攻读硕士学位期间从事的科研工作及取得的成果}
+    \chapter*{攻读硕士学位期间从事的科研工作及取得的成果}
 
     \addcontentsline{toc}{chapter}{攻读硕士学位期间从事的科研工作及取得的成果}
     \markboth{攻读硕士学位期间从事的科研工作及取得的成果}{}
@@ -551,16 +563,17 @@
     label = [\arabic*],
     align = left,
     leftmargin = 10mm,
-    topsep = 6bp,
+    topsep = -0bp,
     parsep = 0bp,
     partopsep = 0bp,
-    itemsep = 6bp,
+    itemsep = 0bp,
     labelsep = !,
     before = {},
+    after = {\newline},
 }
 
-\newenvironment{publications}{%
-    \begin{achievements}%
-    }{%
-    \end{achievements}%
-}
+%\newenvironment{publications}{%
+%    \begin{achievements}%
+%    }{%
+%    \end{achievements}%
+%}
