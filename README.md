@@ -14,7 +14,7 @@
 - 有时候目录不会更新，需要手动清理辅助文件，即TexStudio中 点击 `工具--清理辅助文件`，再编译
 - 编译结果是`thesis.pdf`文件
 ## 模板下载方法
-点击右边release，或点击[这里](https://github.com/lusccc/cqupt-thesis/releases)
+点击右边release/发行版，或者点击上边克隆下载/code↓
 ## Requirement
 - TexLive 2020及以上，iso镜像点 [这里](https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/) 下载
 - 目前只在win10系统下进行测试，Mac，Linux未测试
