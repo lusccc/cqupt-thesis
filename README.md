@@ -19,6 +19,8 @@
 - TexLive 2020及以上，iso镜像点 [这里](https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/) 下载
 - 目前只在win10系统下进行测试，Mac，Linux未测试
 
+## 🤞模板有不完善的地方，后续会及时更新
+
 
 ## Powered By
 - [CQUPTThesis](https://github.com/mequanwei/CQUPTThesis)
