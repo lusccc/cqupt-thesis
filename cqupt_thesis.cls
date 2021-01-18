@@ -97,6 +97,9 @@
 \newcommand\cnkeywords[1]{\renewcommand\@cnkeywords{#1}}
 \newcommand\enkeywords[1]{\renewcommand\@enkeywords{#1}}
 
+\newif\ifmaincontent % 控制\AtBeginEnvironment{tabular} 命令是否生效
+\maincontentfalse % 目前还未进入正文
+
 \newcommand{\makecoverINFOcell}[1]{
     \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{ \zihao{-3}\textbf{#1}}}
 }
@@ -128,9 +131,10 @@
         \zihao{-4}
         \vspace{2.56cm}
         \hspace{0.36cm}
-        \renewcommand{\arraystretch}{1.228}
-%        \begin{tabular}{p{1.7cm} c<{\rule[2mm]{0pt}{7mm}}}
+
         \begin{tabular}{p{1.7cm} c}
+            \zihao{-4}
+            \renewcommand{\arraystretch}{1.121}
             \makebox[1.7cm][l]{\textbf{中文题目}} & \makecoverINFOcell{\@cntitle}       \\
             \ifthenelse{\equal{\@cnsubtitle}{}}{}{
                 & \makecoverINFOcell{\@cnsubtitle}    \\
@@ -405,6 +409,18 @@
 }
 
 
+\newcommand\initmaincontent{
+    \fancyhf{}
+    \pagestyle{fancy}
+    \pagenumbering{arabic}
+    \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.21cm}}
+    \fancyhead[R]{\songti\zihao{5} \leftmark \vspace{0.21cm}}
+    \fancyfoot[CO,CE]{\vspace{0.004cm}\zihao{-5}\thepage}
+    \maincontenttrue % 进入正文，表格格式生效
+}
+
+
+
 %数学环境
 \RequirePackage{unicode-math}
 \newtheoremstyle{theoremdd}% name of the style to be used
@@ -443,6 +459,7 @@
 \renewcommand{\algorithmicrequire}{\textbf{输入:}}
 \renewcommand{\algorithmicensure}{\textbf{输出:}}
 
+
 % 图、表 格式
 %\captionsetup[table]{position=top,belowskip=6bp,aboveskip=0bp,singlelinecheck=true}
 %\captionsetup[figure]{position=bottom,belowskip=0bp,aboveskip=6bp}
@@ -450,8 +467,8 @@
 \captionsetup[table]{skip=0pt,labelsep=space}
 \captionsetup[figure]{skip=0pt,labelsep=space}
 \usepackage{etoolbox}
-\AtBeginEnvironment{tabular}{\zihao{5}}
-\AtEndEnvironment{tabular}{\vspace{-0.08cm}}%缩小表格后间隔
+\AtBeginEnvironment{tabular}{\ifmaincontent\zihao{5}\renewcommand{\arraystretch}{1.4}\else\fi}
+\AtEndEnvironment{tabular}{\ifmaincontent\vspace{-0.08cm}\else\fi}%缩小表格后间隔
 \AtBeginEnvironment{figure}{\zihao{5}}
 \AtEndEnvironment{figure}{\vspace{-0.08cm}}
 \usepackage{subfigure}
@@ -463,14 +480,7 @@
 
 
 
-\newcommand\initmaincontent{
-    \fancyhf{}
-    \pagestyle{fancy}
-    \pagenumbering{arabic}
-    \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.21cm}}
-    \fancyhead[R]{\songti\zihao{5} \leftmark \vspace{0.21cm}}
-    \fancyfoot[CO,CE]{\vspace{0.004cm}\zihao{-5}\thepage}
-}
+
 
 %脚注https://www.cnblogs.com/ahhylau/p/4588939.html
 \RequirePackage[bottom,perpage,hang]{footmisc}

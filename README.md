@@ -13,6 +13,7 @@
 - 建议使用 [TexStudio](https://www.texstudio.org/) 编辑器，在`thesis.tex`文件中编写论文，按F1编译并查看；具体使用方法参看`thesis.tex`中的代码
 - 有时候目录不会更新，需要手动清理辅助文件，即TexStudio中 点击 `工具--清理辅助文件`，再编译
 - 编译结果是`thesis.pdf`文件
+- latex表格可以借助 [工具1](https://www.tablesgenerator.com/) [工具2](https://www.latex-tables.com/) 制作
 ## 模板下载方法
 点击右边release/发行版，或者点击上边克隆下载/code↓
 ## Requirement
