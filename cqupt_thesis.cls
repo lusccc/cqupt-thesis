@@ -393,7 +393,6 @@
 \usepackage{ragged2e}
 \newcolumntype{P}[1]{>{\RaggedRight\hspace{0pt}}p{#1}} % 固定宽度列、居左
 \newcommand\makecommenttable[1]{
-    \addcontentsline{toc}{chapter}{注释表}
     \makefancyhf{注释表}
     \chapter*{注释表}
     \vspace{-0.7cm}
@@ -405,6 +404,7 @@
             #1\\
         \end{tabular}
     \end{table}
+    \addcontentsline{toc}{chapter}{注释表}
     \clearpage
 }
 
@@ -418,7 +418,6 @@
     \fancyfoot[CO,CE]{\vspace{0.004cm}\zihao{-5}\thepage}
     \maincontenttrue % 进入正文，表格格式生效
 }
-
 
 
 %数学环境
@@ -477,9 +476,6 @@
 %  {\zihao{5}
 %   \@float{table}}
 %  {\end@float}
-
-
-
 
 
 %脚注https://www.cnblogs.com/ahhylau/p/4588939.html
