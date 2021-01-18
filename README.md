@@ -31,5 +31,5 @@
 
 ### 制作模板不易，可不可以打赏我一瓶冰阔落：
 
-![](https://github.com/lusccc/cqupt-thesis/blob/main/figs/alipay.JPG?raw=true)
-![](https://github.com/lusccc/cqupt-thesis/blob/main/figs/wechat.JPG?raw=trueg)
+![](https://images.gitee.com/uploads/images/2021/0118/093752_fa42e7c0_5281999.jpeg "alipay.JPG")
+![](https://images.gitee.com/uploads/images/2021/0118/093814_d81ede35_5281999.jpeg "wechat.JPG")
