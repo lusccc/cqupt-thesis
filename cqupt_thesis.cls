@@ -448,6 +448,12 @@
 \newtheorem{problem}{问题}[chapter]
 \newtheorem{conjecture}{猜想}[chapter]
 
+\usepackage{etoolbox}
+\AtBeginEnvironment{equation}{\vspace{-0.4cm}}
+\AtEndEnvironment{equation}{\vspace{-0.4cm}}
+
+
+
 % 支持显示代码
 \RequirePackage{listings}
 % 排版算法
@@ -463,11 +469,11 @@
 %\captionsetup[table]{position=top,belowskip=6bp,aboveskip=0bp,singlelinecheck=true}
 %\captionsetup[figure]{position=bottom,belowskip=0bp,aboveskip=6bp}
 \RequirePackage[font=small,]{caption}
-\captionsetup[table]{skip=0pt,labelsep=space}
+\captionsetup[table]{belowskip=8pt,aboveskip=-1pt,labelsep=space}
 \captionsetup[figure]{skip=0pt,labelsep=space}
-\usepackage{etoolbox}
 \AtBeginEnvironment{tabular}{\ifmaincontent\zihao{5}\renewcommand{\arraystretch}{1.4}\else\fi}
-\AtEndEnvironment{tabular}{\ifmaincontent\vspace{-0.08cm}\else\fi}%缩小表格后间隔
+\AtEndEnvironment{tabular}{\ifmaincontent\vspace{-0.9cm}\else\fi}%缩小表格后间隔
+%\AtEndEnvironment{tabular}{\ifmaincontent\vspace{-\baselineskip}\else\fi}%缩小表格后间隔
 \AtBeginEnvironment{figure}{\zihao{5}}
 \AtEndEnvironment{figure}{\vspace{-0.08cm}}
 \usepackage{subfigure}
