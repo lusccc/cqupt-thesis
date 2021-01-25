@@ -38,10 +38,11 @@
 \includepdfset{fitpaper=true}
 
 % 以下是一些文档默认设置：
-\RequirePackage{geometry}%使用geometry调整边距
-\geometry{a4paper,papersize={21cm,29.7cm}}
+\RequirePackage[a4paper]{geometry}%使用geometry调整边距
+%\geometry{a4paper,papersize={21cm,29.7cm}}
 %http://www.ctex.org/documents/packages/layout/geometry.htm
-\geometry{left=3.5cm,right=2.45cm,top=3.1cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
+\newgeometry{left=3.5cm,right=2.45cm,top=3cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
+%\newgeometry{left=3.5cm,right=2.45cm,top=3.1cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
 
 % 页眉页脚、线
 \pagestyle{fancy}
@@ -105,7 +106,7 @@
 }
 
 \newcommand{\makecover}{
-
+    \newgeometry{left=3.5cm,right=2.45cm,top=3.1cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
     \begin{titlepage}
         \zihao{-4}
         \vspace*{-3.1mm}
@@ -157,10 +158,12 @@
             \makebox[1.7cm][s]{\textbf{完成日期}} & \makecoverINFOcell{\@completedate}  \\
         \end{tabular}
     \end{titlepage}
+    \restoregeometry
 }
 
 \newcommand{\makestatement}{
-        {
+    \newgeometry{left=3.5cm,right=2.45cm,top=2.9cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
+    {
         \clearpage
         \thispagestyle{empty}
         \setlength{\baselineskip}{25pt}
@@ -171,38 +174,40 @@
         \vspace{-0.5mm}
         \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip} % 字距调整至和word一样
         \par 本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含他人
-    已经发表或撰写过的研究成果，也不包含为获得\CJKunderline[thickness=0.6pt,depth=0.12em]{\quad 重庆邮电大学\quad}或其他单位的
-    学位或证书而使用过的材料。与我一同工作的人员对本文研究做出的贡献均已在论文中作了明确的说明并致以谢意。
+        已经发表或撰写过的研究成果，也不包含为获得\CJKunderline[thickness=0.6pt,depth=0.12em]{\quad 重庆邮电大学\quad}或其他单位的
+        学位或证书而使用过的材料。与我一同工作的人员对本文研究做出的贡献均已在论文中作了明确的说明并致以谢意。
         \\
         \par  作者签名：\hspace{5.5cm}  日期：\hspace{1.32cm} 年\hspace{0.54cm} 月\hspace{0.54cm} 日
 
-        \vspace{3.71cm}
+        \vspace{3.62cm}
         \begin{center}
             \heiti\zihao{-2} \textbf{学位论文版权使用授权书}
         \end{center}
-        \vspace{1.4mm}
+        \vspace{1.7mm}
         % 服了，上面25磅，这里24磅，
         \setlength{\baselineskip}{24pt}
         \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip}
 %        \renewcommand{\CJKglue}{\hskip -0.2pt plus 0.08\baselineskip}
         % 注意 1个\quad = 1em = 2个word中文空格
         \par  本人完全了解\CJKunderline[thickness=0.6pt,depth=0.12em]{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}有权保留、使用学位论文纸质版和电子版
-    的规定，即学校有权向国家有关部门或机构送交论文，允许论文被查阅和借阅等。
-    本人授权\CJKunderline[thickness=0.6pt,depth=0.12em]{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}可以公布本学位论文的全部或部分内容，可编入有
-    关数据库或信息系统进行检索、分析或评价，可以采用影印、缩印、扫描或拷贝
-    等复制手段保存、汇编本学位论文。
+        的规定，即学校有权向国家有关部门或机构送交论文，允许论文被查阅和借阅等。
+        本人授权\CJKunderline[thickness=0.6pt,depth=0.12em]{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}可以公布本学位论文的全部或部分内容，可编入有
+        关数据库或信息系统进行检索、分析或评价，可以采用影印、缩印、扫描或拷贝
+        等复制手段保存、汇编本学位论文。
         \par（注：保密的学位论文在解密后适用本授权书。）
-        \par \vspace{26pt}
+        \par \vspace{23pt}
         \par 作者签名：\hspace{5.5 cm}导师签名：
         \vspace{4pt}
         \par 日期:\qquad\qquad 年\hspace{1.5em} 月\hspace{1.5em} 日 \hspace{2.02cm} 日期:\hspace{1.26cm} 年\hspace{1.5em} 月\hspace{1.5em} 日
     }
+    \restoregeometry
 }
 
 %摘要及之后中文的正文，小四1.5倍行距等同的linespread=1.62
 %https://www.jianshu.com/p/9c0d74d741dd
 \linespread{1.62}\selectfont
 \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip} % 0.08字距调整至和word一样
+
 
 % CTEX设置各级标题对齐方式，字号，字体及前后段间距
 %使用 fixskip 来抑制标题的额外间距。这里的 beforeskip 和 afterskip
@@ -250,7 +255,7 @@
 %https://www.shangmayuan.com/a/80b54c9f1c574f5982b1f69b.html
 \newcommand{\makefancyhf}[1]{
     \fancyhf{}
-    \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.22cm}}
+    \fancyhead[L]{\songti\zihao{5} 重庆邮电大学硕士学位论文 \vspace{0.225cm}}
     \fancyhead[R]{\songti\zihao{5} #1 \hspace{0.2cm} \vspace{0.22cm}}
     \fancyfoot[CO,CE]{\zihao{-5}\thepage}
 }
@@ -454,7 +459,7 @@
 %\AtBeginEnvironment{equation}{\vspace{-0.4cm}}
 %\AtEndEnvironment{equation}{\vspace{-0.4cm}}
 \AtBeginDocument{%
-   \setlength{\abovedisplayskip}      {3pt}
+    \setlength{\abovedisplayskip}     {3pt}
     \setlength{\abovedisplayshortskip}{3pt}
     \setlength{\belowdisplayskip}     {3pt}
     \setlength{\belowdisplayshortskip}{3pt}
