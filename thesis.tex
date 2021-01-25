@@ -133,7 +133,6 @@
 
     学位论文是研究生从事科研工作的成果的主要表现，它集中表明了作者在研究工作中获得的新的发明、理论或见解，是研究生申请学位的重要依据，也是科研领域中的重要文献资料和社会的宝贵财富。硕士学位论文应能表明作者已在本门学科上掌握了坚实的基础理论和系统的专业知识，并对所研究课题有新的见解，有从事科学研究工作或独立担负专门技术工作的能力\incite{曹敏GB} 。
 
-
     \subsection{本模板使用说明}
     本模板是2015年首次发布并将在重庆邮电大学研究生撰写硕士学位论文工作中推广。
 
@@ -173,7 +172,7 @@
 
     \section{图表格式}
     表注主要包括三种情况：资料来源（说明表中数据的文献来源，可用标题上引用参考文献、表下说明出处或脚注三种方式之一给出）、普通注解（对表中的数据处理的说明）、特殊注解（对某一个或几个表栏项目进行特别说明），如表\ref{电流类型对效率的影响}所示。
-    
+
     \begin{table}[H]% H代表就插在此位置
         \centering
         \caption{电流类型对效率的影响}
@@ -191,11 +190,11 @@
 
                 \qquad 注：括号内的数字表明了$ W_{in}\neq0 $的情况；*表示$ v_{p0}/v_{pf}=0 $，**表示$ h=20mm,L_rL_r^\prime=0.628\mu H/m,l_g=2m,v_{pf}=3km/s $。
             }
-        	\vspace{1em}%表注后的间隔
+            \vspace{1em}%表注后的间隔
         \end{tabular}
     \end{table}
     表名中不允许使用标点符号，表名后不加标点。表名与正文之间不空行。数字空缺的格内加横线“－”（占2个数字宽度）。
-   
+
 
     表内文字或数字上、下或左、右相同时，采用通栏处理方式（合并单元格），表内文字或数字上、下或左、右相同时，采用通栏处理方式(合并单元格)，或一律填上具体数字或文字，不允许用“〃”“同上”之类的写法。
 
@@ -203,8 +202,8 @@
 
     \begin{figure}[H]
         \centering
-		% 这样做图录里可以避免出现文献上标
-		
+        % 这样做图录里可以避免出现文献上标
+
         \subfigure[\zihao{5}平均个体聚类度变化图]{
             \begin{minipage}[t]{0.5\linewidth}
                 \centering
@@ -219,9 +218,9 @@
                 %\caption{fig2}
             \end{minipage}%
         }%
-		\caption[标示群体突现时刻的指标变化图]{ 标示群体突现时刻的指标变化图\cite{陈浩元2015gb} }
+        \caption[标示群体突现时刻的指标变化图]{ 标示群体突现时刻的指标变化图\cite{陈浩元2015gb} }
         \centering
-        
+
     \end{figure}
     曲线图的纵横坐标必须标注“量、标准规定符号、单位”。此三者只有在不必要标明（如无量纲等）的情况下方可省略。坐标上标注的量的符号和缩略词必须与正文一致。
 
@@ -236,8 +235,35 @@
         \begin{equation}
             \lim_{n \to \infty} P \left(\frac{\sqrt{n} \left( \bar{X}_n - \mu \right)}{\sigma} \le z \right) = \Phi(z),
         \end{equation}
+        \begin{equation}
+            \lim_{n \to \infty} P \left(\frac{\sqrt{n} \left( \bar{X}_n - \mu \right)}{\sigma} \le z \right) = \Phi(z),
+        \end{equation}
         其中 $\Phi(z)$ 是标准正态分布的分布函数。
     \end{theorem}
+
+    \begin{example}
+        \setlength\abovedisplayskip{0pt}
+        \setlength\belowdisplayskip{0pt}
+        \setlength{\jot}{-10pt}
+        计算离散模糊集$\hat F = \{ {{0.5} \mathord{\left/
+                {\vphantom {{0.5} {0.2}}} \right.
+            \kern-\nulldelimiterspace} {0.2}} + {{0.7} \mathord{\left/
+                {\vphantom {{0.7} {0.6}}} \right.
+            \kern-\nulldelimiterspace} {0.6}} + {{0.4} \mathord{\left/
+                {\vphantom {{0.4} {0.8}}} \right.
+            \kern-\nulldelimiterspace} {0.8}}\} $的几何中心。
+        \begin{align*}
+            \begin{array}{l}
+            {\rm{s}}
+                = \frac{1}{2}\sum\limits_{i = 1}^{3} {({u_i}\hat F(} {u_{i + 1}}) - {u_{i + 1}}\hat F({u_i})) =  - 0.08.
+            \end{array} \\
+            \hat u = \frac{1}{{6s}}\sum\limits_{i = 1}^{3} {({u_i} + {u_{i + 1}})} ({u_i}\hat F({u_{i + 1}}) - {u_{i + 1}}\hat F({u_i})) \approx 0.533. \\
+            F(\hat u) = \frac{1}{{6s}}\sum\limits_{i = 1}^{3} {(\hat F({u_i}) + \hat F({u_{i + 1}}))} ({u_i}\hat F({u_{i + 1}}) - {u_{i + 1}}\hat F({u_i})) \approx 0.533.
+        \end{align*}
+
+        因此，$\hat F$的几何中心$\hat p$为$(0.533,0.533)$。
+    \end{example}
+
     \begin{proof}
         Trivial.
     \end{proof}
@@ -265,6 +291,8 @@
     \newtheorem{conjecture}{猜想}[chapter]
 
     \end{lstlisting}
+
+
 
 
     \section{算法}
@@ -313,6 +341,15 @@
             \EndFunction
         \end{algorithmic}
     \end{algorithm}
+
+
+    \section{列表格式}
+    举例：
+    \begin{enumerate}[align=left, leftmargin=0pt, labelindent=\parindent, listparindent=\parindent, labelwidth=0pt, itemindent=!
+    ]
+        \item 阐述第一个创新工作。不要把阅读文献当成创新工作。
+        \item 阐述第二个创新工作。
+    \end{enumerate}
 
 
 

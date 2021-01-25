@@ -101,14 +101,14 @@
 \maincontentfalse % 目前还未进入正文
 
 \newcommand{\makecoverINFOcell}[1]{
-    \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{ \zihao{-3}\textbf{#1}}}
+    \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{ \zihao{4}\textbf{#1}}}
 }
 
 \newcommand{\makecover}{
 
     \begin{titlepage}
         \zihao{-4}
-        \vspace*{-4.2mm}
+        \vspace*{-3.1mm}
 %        \hspace{1.57cm}\parbox[b]{15.37cm}{
         \hspace{0.599cm}\parbox[b]{15.37cm}{
             \makebox[2.65cm][c]{\textbf{分类号}}
@@ -116,7 +116,7 @@
             \hspace{1mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@classifiedindex}}}\hspace{1.2mm}
             \makebox[3cm][c]{\textbf{密级}}
             \hspace{1.1mm}\CJKunderline[thickness=1.3pt,]{\makebox[4.39cm][c]{\textbf{\@statesecrets}}}
-            \\[-0.1mm]
+            \\[-0.9mm]
             \makebox[2.65cm][c]{\textbf{UDC}}
             \hspace{1.5mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@udc}}}\hspace{1.1mm}
             \makebox[3cm][c]{\textbf{学位论文编号}}
@@ -125,16 +125,16 @@
 
 
         \zihao{2}
-        \vspace{2.35cm}
+        \vspace{2.26cm}
         \hspace{1.379cm}\textbf{重庆邮电大学硕士学位论文}
 
         \zihao{-4}
-        \vspace{2.56cm}
+        \vspace{1.83cm}
         \hspace{0.36cm}
 
+        \renewcommand{\arraystretch}{1.134}
         \begin{tabular}{p{1.7cm} c}
             \zihao{-4}
-            \renewcommand{\arraystretch}{1.121}
             \makebox[1.7cm][l]{\textbf{中文题目}} & \makecoverINFOcell{\@cntitle}       \\
             \ifthenelse{\equal{\@cnsubtitle}{}}{}{
                 & \makecoverINFOcell{\@cnsubtitle}    \\
@@ -392,6 +392,8 @@
 %}
 \usepackage{ragged2e}
 \newcolumntype{P}[1]{>{\RaggedRight\hspace{0pt}}p{#1}} % 固定宽度列、居左
+\newcolumntype{x}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+
 \newcommand\makecommenttable[1]{
     \makefancyhf{注释表}
     \chapter*{注释表}
@@ -449,10 +451,16 @@
 \newtheorem{conjecture}{猜想}[chapter]
 
 \usepackage{etoolbox}
-\AtBeginEnvironment{equation}{\vspace{-0.4cm}}
-\AtEndEnvironment{equation}{\vspace{-0.4cm}}
+%\AtBeginEnvironment{equation}{\vspace{-0.4cm}}
+%\AtEndEnvironment{equation}{\vspace{-0.4cm}}
+\AtBeginDocument{%
+   \setlength{\abovedisplayskip}      {3pt}
+    \setlength{\abovedisplayshortskip}{3pt}
+    \setlength{\belowdisplayskip}     {3pt}
+    \setlength{\belowdisplayshortskip}{3pt}
+}
 
-
+%\usepackage{gensymb} %支持角度符号
 
 % 支持显示代码
 \RequirePackage{listings}
