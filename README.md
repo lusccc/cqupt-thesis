@@ -1,7 +1,7 @@
 
 
 # 重庆邮电大学研究生学位论文LaTex模板
-关联[重庆邮电大学学位论文自动化排版工具]https://github.com/lusccc/cqupt-thesis-officedown
+关联[重庆邮电大学学位论文自动化排版工具](https://github.com/lusccc/cqupt-thesis-officedown)
 ## ✨优势
 使用过latex同学一定感受很深，这里列举几个优点
 - 无脑，格式都已经定义好了，往里填内容即可
