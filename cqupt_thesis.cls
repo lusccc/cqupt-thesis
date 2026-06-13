@@ -8,7 +8,7 @@
 \LoadClass[a4paper,UTF8,oneside, openany, zihao=-4,AutoFakeBold]{ctexbook}
 
 \RequirePackage{float}
-\usepackage{amssymb}
+\RequirePackage{amssymb}
 \RequirePackage{amsmath}
 %https://tex.stackexchange.com/questions/43835/conflict-between-amsthm-and-some-other-package
 \RequirePackage{amsthm}
@@ -31,7 +31,7 @@
 \RequirePackage{multirow}
 \RequirePackage{array}
 \RequirePackage{setspace}
-\usepackage{booktabs}
+\RequirePackage{booktabs}
 \RequirePackage{enumitem}
 %TODO pdfpages 宏包便于我们插入扫描后的授权说明和声明页 PDF 文档。
 \RequirePackage{pdfpages}
@@ -41,7 +41,7 @@
 \RequirePackage[a4paper]{geometry}%使用geometry调整边距
 %\geometry{a4paper,papersize={21cm,29.7cm}}
 %http://www.ctex.org/documents/packages/layout/geometry.htm
-\newgeometry{left=3.5cm,right=2.45cm,top=3cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
+\cquptgeometry
 %\newgeometry{left=3.5cm,right=2.45cm,top=3.1cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
 
 % 页眉页脚、线
@@ -101,12 +101,42 @@
 \newif\ifmaincontent % 控制\AtBeginEnvironment{tabular} 命令是否生效
 \maincontentfalse % 目前还未进入正文
 
+% 共用页面边距命令，仅top参数不同
+\newcommand{\cquptgeometry}[1][3cm]{
+    \newgeometry{left=3.5cm,right=2.45cm,top=#1,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
+}
+
+% 封面头部字段下划线（分类号、UDC等）
+\newcommand{\coverHeaderField}[2]{
+    \CJKunderline[thickness=1.3pt,]{\makebox[#1][c]{\textbf{#2}}}
+}
+
+% 声明页填空下划线
+\newcommand{\statementUnderline}[1]{
+    \CJKunderline[thickness=0.6pt,depth=0.12em]{#1}
+}
+
+% CJKglue设置为与word一致的字距
+\newcommand{\setCJKglueWord}{
+    \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip}
+}
+
+% 生成带页眉的目录/图录/表录页
+\newcommand{\makelistpage}[2]{
+    {\def\makebox[##1][##2]##3{##3}%
+        \clearpage
+        \makefancyhf{#1}
+        #2
+        \thispagestyle{fancy}
+    }
+}
+
 \newcommand{\makecoverINFOcell}[1]{
     \hspace{3mm}\CJKunderline[depth=0.8em]{\makebox[10.06cm][c]{ \zihao{4}\textbf{#1}}}
 }
 
 \newcommand{\makecover}{
-    \newgeometry{left=3.5cm,right=2.45cm,top=3.1cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
+    \cquptgeometry[3.1cm]
     \begin{titlepage}
         \zihao{-4}
         \vspace*{-3.1mm}
@@ -114,14 +144,14 @@
         \hspace{0.599cm}\parbox[b]{15.37cm}{
             \makebox[2.65cm][c]{\textbf{分类号}}
             %1.5mm, 1.1mm是单元格边距
-            \hspace{1mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@classifiedindex}}}\hspace{1.2mm}
+            \hspace{1mm}\coverHeaderField{2.97cm}{\@classifiedindex}\hspace{1.2mm}
             \makebox[3cm][c]{\textbf{密级}}
-            \hspace{1.1mm}\CJKunderline[thickness=1.3pt,]{\makebox[4.39cm][c]{\textbf{\@statesecrets}}}
+            \hspace{1.1mm}\coverHeaderField{4.39cm}{\@statesecrets}
             \\[-0.9mm]
             \makebox[2.65cm][c]{\textbf{UDC}}
-            \hspace{1.5mm}\CJKunderline[thickness=1.3pt,]{\makebox[2.97cm][c]{\textbf{\@udc}}}\hspace{1.1mm}
+            \hspace{1.5mm}\coverHeaderField{2.97cm}{\@udc}\hspace{1.1mm}
             \makebox[3cm][c]{\textbf{学位论文编号}}
-            \hspace{0.2mm}\CJKunderline[thickness=1.3pt,]{\makebox[4.39cm][c]{\textbf{\@paperno}}}
+            \hspace{0.2mm}\coverHeaderField{4.39cm}{\@paperno}
         }
 
 
@@ -162,7 +192,7 @@
 }
 
 \newcommand{\makestatement}{
-    \newgeometry{left=3.5cm,right=2.45cm,top=2.9cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
+    \cquptgeometry[2.9cm]
     {
         \clearpage
         \thispagestyle{empty}
@@ -172,9 +202,9 @@
             \heiti\zihao{-2} 独\hspace{0.5em}创\hspace{0.5em}性\hspace{0.5em}声\hspace{0.5em}明
         \end{center}
         \vspace{-0.5mm}
-        \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip} % 字距调整至和word一样
+        \setCJKglueWord
         \par 本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。尽我所知，除了文中特别加以标注和致谢的地方外，论文中不包含他人
-        已经发表或撰写过的研究成果，也不包含为获得\CJKunderline[thickness=0.6pt,depth=0.12em]{\quad 重庆邮电大学\quad}或其他单位的
+        已经发表或撰写过的研究成果，也不包含为获得\statementUnderline{\quad 重庆邮电大学\quad}或其他单位的
         学位或证书而使用过的材料。与我一同工作的人员对本文研究做出的贡献均已在论文中作了明确的说明并致以谢意。
         \\
         \par  作者签名：\hspace{5.5cm}  日期：\hspace{1.32cm} 年\hspace{0.54cm} 月\hspace{0.54cm} 日
@@ -186,12 +216,12 @@
         \vspace{1.7mm}
         % 服了，上面25磅，这里24磅，
         \setlength{\baselineskip}{24pt}
-        \renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip}
+        \setCJKglueWord
 %        \renewcommand{\CJKglue}{\hskip -0.2pt plus 0.08\baselineskip}
         % 注意 1个\quad = 1em = 2个word中文空格
-        \par  本人完全了解\CJKunderline[thickness=0.6pt,depth=0.12em]{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}有权保留、使用学位论文纸质版和电子版
+        \par  本人完全了解\statementUnderline{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}有权保留、使用学位论文纸质版和电子版
         的规定，即学校有权向国家有关部门或机构送交论文，允许论文被查阅和借阅等。
-        本人授权\CJKunderline[thickness=0.6pt,depth=0.12em]{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}可以公布本学位论文的全部或部分内容，可编入有
+        本人授权\statementUnderline{\hspace{1.5em}重庆邮电大学\hspace{1.5em}}可以公布本学位论文的全部或部分内容，可编入有
         关数据库或信息系统进行检索、分析或评价，可以采用影印、缩印、扫描或拷贝
         等复制手段保存、汇编本学位论文。
         \par（注：保密的学位论文在解密后适用本授权书。）
@@ -206,7 +236,7 @@
 %摘要及之后中文的正文，小四1.5倍行距等同的linespread=1.62
 %https://www.jianshu.com/p/9c0d74d741dd
 \linespread{1.62}\selectfont
-\renewcommand{\CJKglue}{\hskip 0pt plus 0.08\baselineskip} % 0.08字距调整至和word一样
+\setCJKglueWord % 字距调整至和word一样
 
 
 % CTEX设置各级标题对齐方式，字号，字体及前后段间距
@@ -298,11 +328,10 @@
 }
 
 % ------开始设置 目录样式
-% 使用hyperref宏包去除索引上的颜色标记
-\RequirePackage{hyperref}
+% hyperref已在文件头部加载，此处仅配置
 \hypersetup{pdfborder=0 0 0}
 % 把表录、图录、参考文献 加入目录
-\usepackage[nottoc]{tocbibind}
+\RequirePackage[nottoc]{tocbibind}
 %\usepackage[nottoc,notlot,notlof]{tocbibind}
 
 \ctexset{
@@ -333,19 +362,20 @@
 \renewcommand{\cftaftertoctitleskip}{20pt}
 \renewcommand{\cftaftertoctitle}{\hfill}%相当于均匀排布、居中
 
-% 目录内容章、节 lof lob 设置
+% 目录内容章、节 lof lot 设置
 \renewcommand{\cftchapfont}{\normalfont}
 \renewcommand{\cftsecfont}{\normalfont}
 \renewcommand\listfigurename{图录}
 \renewcommand\listtablename{表录}
-\renewcommand{\cftloftitlefont}{\hfill\zihao{3}\rm\heiti}
-\renewcommand{\cftlottitlefont}{\hfill\zihao{3}\rm\heiti}
-\renewcommand{\cftafterloftitle}{\hfill}
-\renewcommand{\cftafterlottitle}{\hfill}
-\renewcommand{\cftbeforeloftitleskip}{-10pt}%此处魔改 表录、图录 大标题行距，下同
-\renewcommand{\cftbeforelottitleskip}{-10pt}
-\renewcommand{\cftafterloftitleskip}{20pt}
-\renewcommand{\cftafterlottitleskip}{20pt}
+% 共用列表标题样式（图录/表录）
+\newcommand{\setupListTitleStyle}[1]{%
+    \expandafter\renewcommand\csname cft#1titlefont\endcsname{\hfill\zihao{3}\rm\heiti}%
+    \expandafter\renewcommand\csname cftafter#1title\endcsname{\hfill}%
+    \expandafter\renewcommand\csname cftbefore#1titleskip\endcsname{-10pt}%
+    \expandafter\renewcommand\csname cftafter#1titleskip\endcsname{20pt}%
+}
+\setupListTitleStyle{lof}
+\setupListTitleStyle{lot}
 
 \setcounter{secnumdepth}{3}     % 设定章节计数深度
 \setcounter{tocdepth}{2}        % 设置目录计数深度
@@ -395,7 +425,7 @@
 %    \makefancyhf{表录}
 %    \thispagestyle{fancy}
 %}
-\usepackage{ragged2e}
+\RequirePackage{ragged2e}
 \newcolumntype{P}[1]{>{\RaggedRight\hspace{0pt}}p{#1}} % 固定宽度列、居左
 \newcolumntype{x}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
 
@@ -455,7 +485,7 @@
 \newtheorem{problem}{问题}[chapter]
 \newtheorem{conjecture}{猜想}[chapter]
 
-\usepackage{etoolbox}
+\RequirePackage{etoolbox}
 %\AtBeginEnvironment{equation}{\vspace{-0.4cm}}
 %\AtEndEnvironment{equation}{\vspace{-0.4cm}}
 \AtBeginDocument{%
@@ -470,10 +500,10 @@
 % 支持显示代码
 \RequirePackage{listings}
 % 排版算法
-\usepackage{algorithm}
-\usepackage{algorithmicx}
+\RequirePackage{algorithm}
+\RequirePackage{algorithmicx}
 \floatname{algorithm}{算法}
-\usepackage{algpseudocode}
+\RequirePackage{algpseudocode}
 \renewcommand{\algorithmicrequire}{\textbf{输入:}}
 \renewcommand{\algorithmicensure}{\textbf{输出:}}
 
@@ -489,7 +519,7 @@
 %\AtEndEnvironment{tabular}{\ifmaincontent\vspace{-\baselineskip}\else\fi}%缩小表格后间隔
 \AtBeginEnvironment{figure}{\zihao{5}}
 \AtEndEnvironment{figure}{\vspace{-0.08cm}}
-\usepackage{subfigure}
+\RequirePackage{subfigure}
 %\AtBeginEnvironment{subfigure}{\zihao{5}}
 %\renewenvironment{table}%
 %  {\zihao{5}
@@ -518,7 +548,7 @@
 \def\footnoterule{\moveright0.8cm\vbox{\vskip0\p@\hrule\@width0.35\textwidth\@height0.6\p@\vskip3\p@}}
 %https://tex.stackexchange.com/questions/96116/is-this-the-right-way-to-format-foot-notes/96401#96401
 \setlength{\footnotesep}{16pt}
-\usepackage{scrextend}
+\RequirePackage{scrextend}
 \deffootnote[2em]{0em}{2em}{\thefootnotemark}
 \let\origfootnote\footnote
 \renewcommand{\footnote}[1]{

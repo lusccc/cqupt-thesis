@@ -86,26 +86,9 @@
 
     % 制作目录，有点不优雅，后期优化。这样做能使dot line延伸至页码
 %    https://tex.stackexchange.com/questions/134769/dotted-line-in-toc-despite-cftsetpnumwidth
-    {\def\makebox[#1][#2]#3{#3}%
-        \clearpage
-        \makefancyhf{目录}
-        \tableofcontents
-        \thispagestyle{fancy}
-    }
-    {\def\makebox[#1][#2]#3{#3}%
-        \clearpage
-        \makefancyhf{图录}
-        \listoffigures
-%        \addcontentsline{toc}{chapter}{\listfigurename}
-        \thispagestyle{fancy}
-    }
-    {\def\makebox[#1][#2]#3{#3}%
-        \clearpage
-        \makefancyhf{表录}
-        \listoftables
-%        \addcontentsline{toc}{chapter}{\listtablename}
-        \thispagestyle{fancy}
-    }
+    \makelistpage{目录}{\tableofcontents}
+    \makelistpage{图录}{\listoffigures}
+    \makelistpage{表录}{\listoftables}
 
 
 %   ------注释表
