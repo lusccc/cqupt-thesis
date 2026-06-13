@@ -1,6 +1,14 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cqupt_thesis}
 
+% Error and warning helpers
+\newcommand\cqupt@error[1]{%
+  \ClassError{cqupt_thesis}{#1}{}%
+}
+\newcommand\cqupt@warning[1]{%
+  \ClassWarning{cqupt_thesis}{#1}%
+}
+
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
@@ -8,7 +16,7 @@
 \LoadClass[a4paper,UTF8,oneside, openany, zihao=-4,AutoFakeBold]{ctexbook}
 
 \RequirePackage{float}
-\usepackage{amssymb}
+\RequirePackage{amssymb}
 \RequirePackage{amsmath}
 %https://tex.stackexchange.com/questions/43835/conflict-between-amsthm-and-some-other-package
 \RequirePackage{amsthm}
@@ -31,7 +39,7 @@
 \RequirePackage{multirow}
 \RequirePackage{array}
 \RequirePackage{setspace}
-\usepackage{booktabs}
+\RequirePackage{booktabs}
 \RequirePackage{enumitem}
 %TODO pdfpages 宏包便于我们插入扫描后的授权说明和声明页 PDF 文档。
 \RequirePackage{pdfpages}
@@ -106,6 +114,14 @@
 }
 
 \newcommand{\makecover}{
+    \ifthenelse{\equal{\@cntitle}{}}{\cqupt@warning{cntitle is empty; set it with \protect\cntitle{}}}{}
+    \ifthenelse{\equal{\@entitle}{}}{\cqupt@warning{entitle is empty; set it with \protect\entitle{}}}{}
+    \ifthenelse{\equal{\@stuno}{}}{\cqupt@warning{stuno is empty; set it with \protect\stuno{}}}{}
+    \ifthenelse{\equal{\@name}{}}{\cqupt@warning{name is empty; set it with \protect\name{}}}{}
+    \ifthenelse{\equal{\@degreeclass}{}}{\cqupt@warning{degreeclass is empty; set it with \protect\degreeclass{}}}{}
+    \ifthenelse{\equal{\@major}{}}{\cqupt@warning{major is empty; set it with \protect\major{}}}{}
+    \ifthenelse{\equal{\@supervisor}{}}{\cqupt@warning{supervisor is empty; set it with \protect\supervisor{}}}{}
+    \ifthenelse{\equal{\@completedate}{}}{\cqupt@warning{completedate is empty; set it with \protect\completedate{}}}{}
     \newgeometry{left=3.5cm,right=2.45cm,top=3.1cm,bottom=2.4cm,footskip=0.14cm,headsep=0.75cm,headheight=1.5cm}
     \begin{titlepage}
         \zihao{-4}
@@ -274,6 +290,7 @@
     \renewcommand{\CJKglue}{\hskip -0.22pt plus 0.01\baselineskip} % 0.01表示汉字间距离可伸缩
 }
 {
+    \ifthenelse{\equal{\@cnkeywords}{}}{\cqupt@warning{cnkeywords is empty; set it with \protect\cnkeywords{}}}{}
     \vspace{21pt}\par
     {\textbf{\cusongti{关键词：}}} \@cnkeywords
 }
@@ -293,16 +310,16 @@
     \linespread{1.44}\selectfont
     }
     {
+    \ifthenelse{\equal{\@enkeywords}{}}{\cqupt@warning{enkeywords is empty; set it with \protect\enkeywords{}}}{}
     \vspace{21pt}\par
     {\textbf{\cusongti{Keywords: }}} \@enkeywords
 }
 
 % ------开始设置 目录样式
-% 使用hyperref宏包去除索引上的颜色标记
-\RequirePackage{hyperref}
+% 使用hyperref宏包去除索引上的颜色标记（hyperref already loaded above）
 \hypersetup{pdfborder=0 0 0}
 % 把表录、图录、参考文献 加入目录
-\usepackage[nottoc]{tocbibind}
+\RequirePackage[nottoc]{tocbibind}
 %\usepackage[nottoc,notlot,notlof]{tocbibind}
 
 \ctexset{
@@ -395,7 +412,7 @@
 %    \makefancyhf{表录}
 %    \thispagestyle{fancy}
 %}
-\usepackage{ragged2e}
+\RequirePackage{ragged2e}
 \newcolumntype{P}[1]{>{\RaggedRight\hspace{0pt}}p{#1}} % 固定宽度列、居左
 \newcolumntype{x}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
 
@@ -455,7 +472,7 @@
 \newtheorem{problem}{问题}[chapter]
 \newtheorem{conjecture}{猜想}[chapter]
 
-\usepackage{etoolbox}
+\RequirePackage{etoolbox}
 %\AtBeginEnvironment{equation}{\vspace{-0.4cm}}
 %\AtEndEnvironment{equation}{\vspace{-0.4cm}}
 \AtBeginDocument{%
@@ -470,10 +487,10 @@
 % 支持显示代码
 \RequirePackage{listings}
 % 排版算法
-\usepackage{algorithm}
-\usepackage{algorithmicx}
+\RequirePackage{algorithm}
+\RequirePackage{algorithmicx}
 \floatname{algorithm}{算法}
-\usepackage{algpseudocode}
+\RequirePackage{algpseudocode}
 \renewcommand{\algorithmicrequire}{\textbf{输入:}}
 \renewcommand{\algorithmicensure}{\textbf{输出:}}
 
@@ -489,7 +506,7 @@
 %\AtEndEnvironment{tabular}{\ifmaincontent\vspace{-\baselineskip}\else\fi}%缩小表格后间隔
 \AtBeginEnvironment{figure}{\zihao{5}}
 \AtEndEnvironment{figure}{\vspace{-0.08cm}}
-\usepackage{subfigure}
+\RequirePackage{subfigure}
 %\AtBeginEnvironment{subfigure}{\zihao{5}}
 %\renewenvironment{table}%
 %  {\zihao{5}
@@ -500,17 +517,17 @@
 %脚注https://www.cnblogs.com/ahhylau/p/4588939.html
 \RequirePackage[bottom,perpage,hang]{footmisc}
 % 生成带圈的脚注数字，最多处理到 10。
-\newcommand\thu@circled[1]{%
-    \ifnum#1 >10\relax
-    \thu@error{%
+\newcommand\cqupt@circled[1]{%
+    \ifnum\value{#1}>10\relax
+    \cqupt@error{%
         Too many footnotes in this page.
-        Keep footnote less than 10%
+        Keep footnotes to 10 or fewer%
     }%
     \fi
     {\ding{\the\numexpr\value{#1}+171\relax}}%
 }
-\renewcommand{\thefootnote}{\zihao{6}\ding{\numexpr171+\value{footnote}}}
-\renewcommand{\thempfootnote}{\zihao{6}\ding{\numexpr171+\value{footnote}}}
+\renewcommand{\thefootnote}{\zihao{6}\cqupt@circled{footnote}}
+\renewcommand{\thempfootnote}{\zihao{6}\cqupt@circled{footnote}}
 
 %定义脚注分割线，字号（宋体小五），以及悬挂缩进（1.5 字符）。
 %https://tex.stackexchange.com/questions/198150/move-footnoterule-to-right
@@ -518,7 +535,7 @@
 \def\footnoterule{\moveright0.8cm\vbox{\vskip0\p@\hrule\@width0.35\textwidth\@height0.6\p@\vskip3\p@}}
 %https://tex.stackexchange.com/questions/96116/is-this-the-right-way-to-format-foot-notes/96401#96401
 \setlength{\footnotesep}{16pt}
-\usepackage{scrextend}
+\RequirePackage{scrextend}
 \deffootnote[2em]{0em}{2em}{\thefootnotemark}
 \let\origfootnote\footnote
 \renewcommand{\footnote}[1]{
